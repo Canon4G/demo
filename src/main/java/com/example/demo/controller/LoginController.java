@@ -16,7 +16,8 @@ import java.util.Map;
 @Controller
 @RequestMapping("")
 public class LoginController {
-//    yy到此一游
+
+    // 我是真的帅
     @RequestMapping(value = "/")
     public String main(){
         return "redirect:/login";
