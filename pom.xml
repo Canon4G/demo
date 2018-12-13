@@ -133,6 +133,13 @@
 			<version>5.1.8</version>
 		</dependency>
 
+		<!--热部署-->
+		<!--<dependency>-->
+			<!--<groupId>org.springframework.boot</groupId>-->
+			<!--<artifactId>spring-boot-devtools</artifactId>-->
+			<!--<optional>true</optional>-->
+		<!--</dependency>-->
+
 	</dependencies>
 
 	<build>
@@ -152,6 +159,15 @@
 					<overwrite>true</overwrite>
 				</configuration>
 			</plugin>
+
+			<!--热部署-->
+			<!--<plugin>-->
+				<!--<groupId>org.springframework.boot</groupId>-->
+				<!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+				<!--<configuration>-->
+					<!--<fork>true</fork>-->
+				<!--</configuration>-->
+			<!--</plugin>-->
 		</plugins>
 	</build>
 
