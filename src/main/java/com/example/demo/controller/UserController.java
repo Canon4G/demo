@@ -4,6 +4,7 @@ import com.example.demo.entity.JsonResult;
 import com.example.demo.manager.UserManager;
 import com.example.demo.model.User;
 import com.example.demo.util.MD5Utils;
+import com.example.demo.util.UUIDHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -97,14 +98,14 @@ public class UserController {
             result.put("returnMsg", "两次密码不一致！");
             return JsonResult.asFalseModel(result);
         }
-
-        // TODO: 生成唯一的用户编号
-
-        // 对密码进行加密并存入数据
-        new User.Builder().userName(username).passWord(MD5Utils.MD5Encode(password,"utf8")).gmtCreate(new Date()).build();
-
-        // TODO: 生成相关联的账户信息
-
-        return null;
+        // 生成用户编码，并对对密码进行加密，进行注册
+        userManager.addUserAndAccount(new User.Builder()
+                .userCode(UUIDHelper.uuid())
+                .userName(username)
+                .passWord(MD5Utils.MD5Encode(password,"utf8"))
+                .gmtCreate(new Date())
+                .build());
+        result.put("returnMsg", "注册成功！");
+        return JsonResult.asTrueModel(result);
     }
 }

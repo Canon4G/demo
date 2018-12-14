@@ -11,8 +11,16 @@ public interface UserManager {
 
     /**
      * 根据条件获得User对象
-     * @param user user对象
+     * @author Canon4G
+     * @param user 用户信息
      * @return User
      */
     User getUserInfo(User user);
+
+    /**
+     * 添加用户信息,账户信息
+     * @author Canon4G
+     * @param user 用户信息
+     */
+    void addUserAndAccount(User user);
 }
