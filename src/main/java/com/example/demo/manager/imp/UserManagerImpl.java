@@ -18,7 +18,7 @@ import java.util.Date;
 /**
  * create by Canon4G 2018-12-14
  **/
-@Service("UserManager")
+@Service(value = "UserManager")
 public class UserManagerImpl  implements UserManager {
 
     private static Logger logger = LoggerFactory.getLogger(UserManagerImpl.class);

@@ -1,7 +1,9 @@
 package com.example.demo.mapper;
 
 import com.example.demo.model.ConsumeDetail;
+import org.apache.ibatis.annotations.Mapper;
 
+@Mapper
 public interface ConsumeDetailMapper {
     int deleteByPrimaryKey(Long id);
 
