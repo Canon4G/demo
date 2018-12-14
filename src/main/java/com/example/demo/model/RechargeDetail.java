@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 充值流水类
  */
-public class rechargeDetail implements Serializable {
+public class RechargeDetail implements Serializable {
 
     private static final long serialVersionUID = 2155289626629761137L;
 
@@ -23,10 +23,10 @@ public class rechargeDetail implements Serializable {
 
     private Date gmtCreate;                 // 创建时间
 
-    public rechargeDetail() {
+    public RechargeDetail() {
     }
 
-    public rechargeDetail(Long id, String rechargeCode, String accountCode, BigDecimal rechargeMoney, String rechargeMode, Date gmtCreate) {
+    public RechargeDetail(Long id, String rechargeCode, String accountCode, BigDecimal rechargeMoney, String rechargeMode, Date gmtCreate) {
         this.id = id;
         this.rechargeCode = rechargeCode;
         this.accountCode = accountCode;
@@ -35,7 +35,7 @@ public class rechargeDetail implements Serializable {
         this.gmtCreate = gmtCreate;
     }
 
-    private rechargeDetail(Builder builder) {
+    private RechargeDetail(Builder builder) {
         setId(builder.id);
         setRechargeCode(builder.rechargeCode);
         setAccountCode(builder.accountCode);
@@ -134,8 +134,8 @@ public class rechargeDetail implements Serializable {
             return this;
         }
 
-        public rechargeDetail build() {
-            return new rechargeDetail(this);
+        public RechargeDetail build() {
+            return new RechargeDetail(this);
         }
     }
 }

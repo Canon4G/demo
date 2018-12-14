@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.demo.mapper.rechargeDetailMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.model.rechargeDetail" >
+<mapper namespace="com.example.demo.mapper.RechargeDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.model.RechargeDetail" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="recharge_code" property="rechargeCode" jdbcType="VARCHAR" />
     <result column="account_code" property="accountCode" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
     delete from finance_recharge_detail
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.rechargeDetail" >
+  <insert id="insert" parameterType="com.example.demo.model.RechargeDetail" >
     insert into finance_recharge_detail (id, recharge_code, account_code, 
       recharge_money, recharge_mode, gmt_create
       )
@@ -30,7 +30,7 @@
       #{rechargeMoney,jdbcType=DECIMAL}, #{rechargeMode,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.rechargeDetail" >
+  <insert id="insertSelective" parameterType="com.example.demo.model.RechargeDetail" >
     insert into finance_recharge_detail
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.rechargeDetail" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.RechargeDetail" >
     update finance_recharge_detail
     <set >
       <if test="rechargeCode != null" >
@@ -94,7 +94,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.rechargeDetail" >
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.RechargeDetail" >
     update finance_recharge_detail
     set recharge_code = #{rechargeCode,jdbcType=VARCHAR},
       account_code = #{accountCode,jdbcType=VARCHAR},

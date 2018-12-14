@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.demo.mapper.consumeDetailMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.model.consumeDetail" >
+<mapper namespace="com.example.demo.mapper.ConsumeDetailMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.model.ConsumeDetail" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="consume_code" property="consumeCode" jdbcType="VARCHAR" />
     <result column="account_code" property="accountCode" jdbcType="VARCHAR" />
@@ -23,7 +23,7 @@
     delete from finance_consume_detail
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.consumeDetail" >
+  <insert id="insert" parameterType="com.example.demo.model.ConsumeDetail" >
     insert into finance_consume_detail (id, consume_code, account_code, 
       consume_money, product_code, product_count, 
       gmt_create)
@@ -31,7 +31,7 @@
       #{consumeMoney,jdbcType=DECIMAL}, #{productCode,jdbcType=VARCHAR}, #{productCount,jdbcType=VARCHAR}, 
       #{gmtCreate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.consumeDetail" >
+  <insert id="insertSelective" parameterType="com.example.demo.model.ConsumeDetail" >
     insert into finance_consume_detail
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -80,7 +80,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.consumeDetail" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.ConsumeDetail" >
     update finance_consume_detail
     <set >
       <if test="consumeCode != null" >
@@ -104,7 +104,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.consumeDetail" >
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.ConsumeDetail" >
     update finance_consume_detail
     set consume_code = #{consumeCode,jdbcType=VARCHAR},
       account_code = #{accountCode,jdbcType=VARCHAR},

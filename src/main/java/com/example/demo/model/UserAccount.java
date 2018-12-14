@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 用户账户类
  */
-public class userAccount implements Serializable {
+public class UserAccount implements Serializable {
 
     private static final long serialVersionUID = 3374593635271157474L;
 
@@ -23,10 +23,10 @@ public class userAccount implements Serializable {
 
     private Date gmtModified;               // 修改时间
 
-    public userAccount() {
+    public UserAccount() {
     }
 
-    public userAccount(Long id, String accountCode, String userCode, BigDecimal accountMoney, Date gmtCreate, Date gmtModified) {
+    public UserAccount(Long id, String accountCode, String userCode, BigDecimal accountMoney, Date gmtCreate, Date gmtModified) {
         this.id = id;
         this.accountCode = accountCode;
         this.userCode = userCode;
@@ -35,7 +35,7 @@ public class userAccount implements Serializable {
         this.gmtModified = gmtModified;
     }
 
-    private userAccount(Builder builder) {
+    private UserAccount(Builder builder) {
         setId(builder.id);
         setAccountCode(builder.accountCode);
         setUserCode(builder.userCode);
@@ -134,8 +134,8 @@ public class userAccount implements Serializable {
             return this;
         }
 
-        public userAccount build() {
-            return new userAccount(this);
+        public UserAccount build() {
+            return new UserAccount(this);
         }
     }
 }

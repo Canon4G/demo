@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.demo.mapper.userAccountMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.model.userAccount" >
+<mapper namespace="com.example.demo.mapper.UserAccountMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.model.UserAccount" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="account_code" property="accountCode" jdbcType="VARCHAR" />
     <result column="user_code" property="userCode" jdbcType="VARCHAR" />
@@ -22,7 +22,7 @@
     delete from user_account
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.userAccount" >
+  <insert id="insert" parameterType="com.example.demo.model.UserAccount" >
     insert into user_account (id, account_code, user_code, 
       account_money, gmt_create, gmt_modified
       )
@@ -30,7 +30,7 @@
       #{accountMoney,jdbcType=DECIMAL}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.userAccount" >
+  <insert id="insertSelective" parameterType="com.example.demo.model.UserAccount" >
     insert into user_account
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -73,7 +73,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.userAccount" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.UserAccount" >
     update user_account
     <set >
       <if test="accountCode != null" >
@@ -94,7 +94,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.userAccount" >
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.UserAccount" >
     update user_account
     set account_code = #{accountCode,jdbcType=VARCHAR},
       user_code = #{userCode,jdbcType=VARCHAR},

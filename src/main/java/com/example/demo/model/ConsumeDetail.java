@@ -7,7 +7,7 @@ import java.util.Date;
 /**
  * 消耗流水类
  */
-public class consumeDetail implements Serializable {
+public class ConsumeDetail implements Serializable {
 
     private static final long serialVersionUID = 2825373008841534233L;
 
@@ -25,10 +25,10 @@ public class consumeDetail implements Serializable {
 
     private Date gmtCreate;                 // 创建时间
 
-    public consumeDetail() {
+    public ConsumeDetail() {
     }
 
-    public consumeDetail(Long id, String consumeCode, String accountCode, BigDecimal consumeMoney, String productCode, String productCount, Date gmtCreate) {
+    public ConsumeDetail(Long id, String consumeCode, String accountCode, BigDecimal consumeMoney, String productCode, String productCount, Date gmtCreate) {
         this.id = id;
         this.consumeCode = consumeCode;
         this.accountCode = accountCode;
@@ -38,7 +38,7 @@ public class consumeDetail implements Serializable {
         this.gmtCreate = gmtCreate;
     }
 
-    private consumeDetail(Builder builder) {
+    private ConsumeDetail(Builder builder) {
         setId(builder.id);
         setConsumeCode(builder.consumeCode);
         setAccountCode(builder.accountCode);
@@ -152,8 +152,8 @@ public class consumeDetail implements Serializable {
             return this;
         }
 
-        public consumeDetail build() {
-            return new consumeDetail(this);
+        public ConsumeDetail build() {
+            return new ConsumeDetail(this);
         }
     }
 }
