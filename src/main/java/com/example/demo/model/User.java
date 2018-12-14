@@ -3,6 +3,9 @@ package com.example.demo.model;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * 用户类
+ */
 public class User implements Serializable {
 
     private static final long serialVersionUID = -630880340434153119L;
