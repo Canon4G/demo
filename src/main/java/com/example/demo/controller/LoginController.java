@@ -30,11 +30,11 @@ public class LoginController {
 
     @RequestMapping(value = "/")
     public String main(){
-        return "redirect:/login";
+        return "redirect:/skipToLogin";
     }
 
-    @RequestMapping(value = "/login", method = RequestMethod.GET)
-    public String login() {
+    @RequestMapping(value = "/skipToLogin", method = RequestMethod.GET)
+    public String skipToLogin() {
         return "login.html";
     }
 
