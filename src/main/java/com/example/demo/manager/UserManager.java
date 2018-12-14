@@ -4,7 +4,7 @@ import com.example.demo.model.User;
 import org.springframework.stereotype.Service;
 
 /**
- * create by guanhao 2018-12-14
+ * create by Canon4G 2018-12-14
  **/
 @Service
 public interface UserManager {

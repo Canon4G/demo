@@ -17,7 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * create by guanhao 2018-12-13
+ * create by Canon4G 2018-12-13
  **/
 @Controller
 @RequestMapping("")
@@ -40,7 +40,7 @@ public class LoginController {
 
     /**
      * 用户登录验证
-     * @author guanhao
+     * @author Canon4G
      * @param username      用户名
      * @param password      密码
      * @return JsonResult
