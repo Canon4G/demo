@@ -43,7 +43,7 @@ CREATE TABLE finance_recharge_detail
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------------
--- finance_consume_detail 消耗流水表
+-- finance_consume_detail 消费流水表
 -- ----------------------------------
 CREATE TABLE finance_consume_detail
 (
@@ -55,4 +55,17 @@ CREATE TABLE finance_consume_detail
     product_count       varchar(40)         NOT NULL COMMENT '商品数量',
     gmt_create          DATETIME            COMMENT '创建时间',
     PRIMARY KEY (id)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------------
+-- commodity_comic_book 商品表
+-- ----------------------------------
+CREATE TABLE commodity_comic_book
+(
+    commodity_id        bigint(20)              NOT NULL AUTO_INCREMENT,
+    commidity_name      varchar(40)             NOT NULL COMMENT '商品名称',
+    category            varchar(40)             COMMENT '分类',
+    price               decimal(16,2)           NOT NULL COMMENT '价格',
+    inventory           bigint(20)              NOT NULL COMMENT '库存',
+    PRIMARY KEY (commodity_id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
