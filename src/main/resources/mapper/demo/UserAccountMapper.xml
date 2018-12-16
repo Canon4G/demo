@@ -18,6 +18,18 @@
     from user_account
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="getInfo" resultMap="BaseResultMap" parameterType="com.example.demo.model.UserAccount" >
+    select
+    <include refid="Base_Column_List" />
+    from user_account
+    <where>
+      <if test="userCode != null and '' != userCode">
+        and user_code = #{userCode}
+      </if>
+    </where>
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from user_account
     where id = #{id,jdbcType=BIGINT}
@@ -92,7 +104,7 @@
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where account_code = #{accountCode,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.model.UserAccount" >
     update user_account

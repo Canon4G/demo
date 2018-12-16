@@ -16,4 +16,12 @@ public interface UserAccountMapper {
     int updateByPrimaryKeySelective(UserAccount record);
 
     int updateByPrimaryKey(UserAccount record);
+
+    /**
+     * 根据条件获得用户账户信息
+     * @author Canon4G
+     * @param userAccount       账户信息
+     * @return UserAccount
+     */
+    UserAccount getInfo(UserAccount userAccount);
 }
