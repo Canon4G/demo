@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -24,7 +26,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping("")
-public class UserController {
+public class UserController extends BaseController {
 
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
 
@@ -32,7 +34,7 @@ public class UserController {
     UserManager userManager;
 
     @RequestMapping(value = "/")
-    public String main(){
+    public String main() {
         return "redirect:/skipToLogin";
     }
 
@@ -44,13 +46,13 @@ public class UserController {
     /**
      * 用户登录验证
      * @author Canon4G
-     * @param username      用户名
-     * @param password      密码
+     * @param username 用户名
+     * @param password 密码
      * @return JsonResult
      */
     @ResponseBody
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public JsonResult login(@RequestParam String username, @RequestParam String password) {
+    public JsonResult login(HttpSession session, @RequestParam String username, @RequestParam String password) {
         Map<String, Object> result = new HashMap<>();
         // 参数校验
         if (StringUtils.isBlank(username)) {
@@ -64,21 +66,34 @@ public class UserController {
             return JsonResult.asFalseModel(result);
         }
         // 判断密码是否正确
-        if (!password.equals(user.getPassWord())){
+        if (!password.equals(user.getPassWord())) {
             result.put("returnMsg", "密码错误！");
             return JsonResult.asFalseModel(result);
         }
         // 登录成功
+        session.setAttribute("user", user);
         result.put("returnMsg", "登录成功！");
         return JsonResult.asTrueModel(result);
     }
 
     /**
+     * 退出登录
+     * @author guanhao
+     * @param request   request
+     */
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.invalidate();
+        return "login.html";
+    }
+
+    /**
      * 用户注册功能
      * @author Canon4G
-     * @param username      用户名
-     * @param password      密码
-     * @param rePassword    确认密码
+     * @param username   用户名
+     * @param password   密码
+     * @param rePassword 确认密码
      * @return JsonResult
      */
     @ResponseBody
@@ -102,7 +117,7 @@ public class UserController {
         userManager.addUserAndAccount(new User.Builder()
                 .userCode(UUIDHelper.uuid())
                 .userName(username)
-                .passWord(MD5Utils.MD5Encode(password,"utf8"))
+                .passWord(MD5Utils.MD5Encode(password, "utf8"))
                 .gmtCreate(new Date())
                 .build());
         result.put("returnMsg", "注册成功！");

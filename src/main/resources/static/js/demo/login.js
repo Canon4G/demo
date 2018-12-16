@@ -1,7 +1,7 @@
 function toLogin() {
     $.ajax({
         type: 'POST',
-        url: '/toLogin',
+        url: '/login',
         data: {
             'username' : $('#username').val(),
             'password' : $('#password').val()
