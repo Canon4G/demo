@@ -37,7 +37,7 @@ CREATE TABLE finance_recharge_detail
     recharge_code       varchar(40)         NOT NULL COMMENT '充值流水编码',
     account_code        varchar(40)         NOT NULL COMMENT '账户编码',
     recharge_money      decimal(16, 2)      DEFAULT NULL COMMENT '充值金额，保留两位小数',
-    recharge_mode       varchar(3)          NOT NULL COMMENT '充值方式：0、微信，1、支付宝，3、银行卡',
+    recharge_mode       varchar(1)          NOT NULL COMMENT '充值方式：0、微信，1、支付宝，3、银行卡',
     gmt_create          DATETIME            COMMENT '创建时间',
     PRIMARY KEY (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -58,14 +58,17 @@ CREATE TABLE finance_consume_detail
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------------
--- commodity_comic_book 商品表
+-- commodity_comic         商品_漫画表
 -- ----------------------------------
-CREATE TABLE commodity_comic_book
+CREATE TABLE commodity_comic
 (
-    commodity_id        bigint(20)              NOT NULL AUTO_INCREMENT,
-    commidity_name      varchar(40)             NOT NULL COMMENT '商品名称',
-    category            varchar(40)             COMMENT '分类',
-    price               decimal(16,2)           NOT NULL COMMENT '价格',
-    inventory           bigint(20)              NOT NULL COMMENT '库存',
-    PRIMARY KEY (commodity_id)
+    id                  bigint(20)              NOT NULL AUTO_INCREMENT,
+    comic_code          varchar(40)             NOT NULL COMMENT '漫画编码',
+    comic_name          varchar(40)             NOT NULL COMMENT '漫画名称',
+    comic_type          varchar(1)              NOT NULL COMMENT '漫画分类: 0、港慢，1、日漫，2、欧美漫画',
+    comic_price         decimal(16,2)           NOT NULL COMMENT '价格, 保留两位小数',
+    comic_inventory     bigint(20)              NOT NULL COMMENT '库存',
+    gmt_create          DATETIME                COMMENT '创建时间',
+    gmt_modified        DATETIME                COMMENT '修改时间',
+    PRIMARY KEY (id)
 )ENGINE=InnoDB DEFAULT CHARSET=utf8;

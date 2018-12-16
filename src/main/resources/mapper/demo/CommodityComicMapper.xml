@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.example.demo.mapper.CommodityComicMapper" >
+  <resultMap id="BaseResultMap" type="com.example.demo.model.CommodityComic" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="comic_code" property="comicCode" jdbcType="VARCHAR" />
+    <result column="comic_name" property="comicName" jdbcType="VARCHAR" />
+    <result column="comic_type" property="comicType" jdbcType="VARCHAR" />
+    <result column="comic_price" property="comicPrice" jdbcType="DECIMAL" />
+    <result column="comic_inventory" property="comicInventory" jdbcType="BIGINT" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, comic_code, comic_name, comic_type, comic_price, comic_inventory, gmt_create, 
+    gmt_modified
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from commodity_comic
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from commodity_comic
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.CommodityComic" >
+    insert into commodity_comic (id, comic_code, comic_name, 
+      comic_type, comic_price, comic_inventory, 
+      gmt_create, gmt_modified)
+    values (#{id,jdbcType=BIGINT}, #{comicCode,jdbcType=VARCHAR}, #{comicName,jdbcType=VARCHAR}, 
+      #{comicType,jdbcType=VARCHAR}, #{comicPrice,jdbcType=DECIMAL}, #{comicInventory,jdbcType=BIGINT}, 
+      #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.CommodityComic" >
+    insert into commodity_comic
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="comicCode != null" >
+        comic_code,
+      </if>
+      <if test="comicName != null" >
+        comic_name,
+      </if>
+      <if test="comicType != null" >
+        comic_type,
+      </if>
+      <if test="comicPrice != null" >
+        comic_price,
+      </if>
+      <if test="comicInventory != null" >
+        comic_inventory,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="comicCode != null" >
+        #{comicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="comicName != null" >
+        #{comicName,jdbcType=VARCHAR},
+      </if>
+      <if test="comicType != null" >
+        #{comicType,jdbcType=VARCHAR},
+      </if>
+      <if test="comicPrice != null" >
+        #{comicPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="comicInventory != null" >
+        #{comicInventory,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.CommodityComic" >
+    update commodity_comic
+    <set >
+      <if test="comicCode != null" >
+        comic_code = #{comicCode,jdbcType=VARCHAR},
+      </if>
+      <if test="comicName != null" >
+        comic_name = #{comicName,jdbcType=VARCHAR},
+      </if>
+      <if test="comicType != null" >
+        comic_type = #{comicType,jdbcType=VARCHAR},
+      </if>
+      <if test="comicPrice != null" >
+        comic_price = #{comicPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="comicInventory != null" >
+        comic_inventory = #{comicInventory,jdbcType=BIGINT},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.CommodityComic" >
+    update commodity_comic
+    set comic_code = #{comicCode,jdbcType=VARCHAR},
+      comic_name = #{comicName,jdbcType=VARCHAR},
+      comic_type = #{comicType,jdbcType=VARCHAR},
+      comic_price = #{comicPrice,jdbcType=DECIMAL},
+      comic_inventory = #{comicInventory,jdbcType=BIGINT},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
