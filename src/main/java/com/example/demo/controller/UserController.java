@@ -81,7 +81,7 @@ public class UserController extends BaseController {
      * @author guanhao
      * @param request   request
      */
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/logout", method = RequestMethod.POST)
     public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
@@ -101,7 +101,22 @@ public class UserController extends BaseController {
     public JsonResult register(@RequestParam String username, @RequestParam String password, @RequestParam String rePassword) {
         Map<String, Object> result = new HashMap<>();
         // 参数校验
-
+        if (StringUtils.isBlank(username)) {
+            result.put("returnMsg", "用户名不能为空！");
+            return JsonResult.asFalseModel(result);
+        }
+        if (StringUtils.isBlank(password)) {
+            result.put("returnMsg", "密码不能为空！");
+            return JsonResult.asFalseModel(result);
+        }
+        if (20 < username.length()) {
+            result.put("returnMsg", "用户名不能超过20位！");
+            return JsonResult.asFalseModel(result);
+        }
+        if (20 < password.length()) {
+            result.put("returnMsg", "密码不能超过20位！");
+            return JsonResult.asFalseModel(result);
+        }
         // 判断用户是否存在
         User user = userManager.getUserInfo(new User.Builder().userName(username).build());
         if (null != user) {
