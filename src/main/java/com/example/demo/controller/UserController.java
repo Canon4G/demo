@@ -81,11 +81,12 @@ public class UserController extends BaseController {
      * @author guanhao
      * @param request   request
      */
+    @ResponseBody
     @RequestMapping(value = "/logout", method = RequestMethod.POST)
-    public String logout(HttpServletRequest request) {
+    public JsonResult logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.invalidate();
-        return "login.html";
+        return JsonResult.asTrue();
     }
 
     /**

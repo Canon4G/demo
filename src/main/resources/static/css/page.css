@@ -1,0 +1,33 @@
+/* 页码 */
+.xwPager{text-align: right;padding: 20px 0;}
+.xwPager ul.pages {
+    display: inline-block;
+    border: none;
+    text-transform: uppercase;
+    font-size: 14px;
+    padding: 0;
+}
+.xwPager ul.pages li {
+    float: left;
+    height: 30px;
+    line-height: 30px;
+    text-align: center;
+    border: 1px solid #e3e3e3;
+    padding: 0 12px;
+    text-decoration: none; /*border: 1px solid #dddddd;*/;
+    color: #666;
+    margin: 0 7px 0 0;
+    background: #fff;
+    cursor: pointer;
+}
+.xwPager ul.pages li.pgNext {
+}
+.xwPager ul.pages li.pgEmpty {
+    display: none; /* border:1px solid #eee;color:#eee;*/
+}
+.xwPager ul.pages li:hover,
+.xwPager ul.pages li.pgCurrent {
+    color: #fff;
+    background-color: #5131ff;
+    border-color: #5131ff;
+}

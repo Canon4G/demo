@@ -21,6 +21,32 @@
     from commodity_comic
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="getInfo" resultMap="BaseResultMap" parameterType="com.example.demo.model.CommodityComic">
+    select
+    <include refid="Base_Column_List" />
+    from commodity_comic
+    <where>
+      <if test="comicCode != null and '' != comicCode">
+        and comic_code = #{comicCode}
+      </if>
+    </where>
+  </select>
+
+  <select id="getInfoList" resultMap="BaseResultMap" parameterType="com.example.demo.model.CommodityComic">
+    select
+    <include refid="Base_Column_List" />
+    from commodity_comic
+    <where>
+      <if test="comicName != null and '' != comicName">
+        and comic_name = #{comicName}
+      </if>
+      <if test="comicType != null and '' != comicType and '-1' != comicType">
+        and comic_type = #{comicType}
+      </if>
+    </where>
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from commodity_comic
     where id = #{id,jdbcType=BIGINT}

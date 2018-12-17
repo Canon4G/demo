@@ -1,0 +1,76 @@
+ <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+ <link rel="stylesheet" href="/css/page.css">
+
+<div>
+    <h2 class="text-info">漫画</h2>
+</div>
+
+<div>
+    <label for="comicName" style="float: left">漫画名称&nbsp;&nbsp;</label>
+    <input class="form-control" style="width: 150px; float: left;" id="comicName">
+    <label style="float: left">漫画类型&nbsp;&nbsp;</label>
+    <select id="comicSelect" class="form-control" style="width: 150px">
+        <option value="-1" selected="selected">全部</option>
+        <option value="0">港漫</option>
+        <option value="1">日漫</option>
+        <option value="2">欧美漫画</option>
+    </select>
+    <input style="display: none" name="" placeholder="" type="text" value="" id="comicType">
+    <button type="button" class="btn btn-primary" style="float: right">
+        <span class="glyphicon glyphicon-search" onclick="searchComic()">&nbsp;搜索&nbsp;</span>
+    </button>
+    <br>
+</div>
+
+ <!-- 按钮和下面列表之间的间隔-->
+<div class="splitter"> <br> </div>
+
+<div>
+    <table class="table table-hover table-bordered" id="comicList">
+        <thead>
+        <tr>
+            <th>
+                漫画名称
+            </th>
+            <th>
+                漫画单价
+            </th>
+            <th>
+                漫画类型
+            </th>
+            <th>
+                漫画库存
+            </th>
+            <th>
+                操作
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr>-->
+            <!--<td>-->
+                <!--1-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--1-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--1-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--1-->
+            <!--</td>-->
+            <!--<td>-->
+                <!--1-->
+            <!--</td>-->
+        <!--</tr>-->
+        </tbody>
+    </table>
+</div>
+
+<div id="comicPage" class="xwPager" style="display: none"></div>
+
+ <script src="/js/base/jquery-3.3.1.min.js"></script>
+ <script src="/js/base/jquery.pager.js"></script>
+<script src="/js/demo/comic.js"></script>
+ <script src="/js/base/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
