@@ -8,7 +8,7 @@ CREATE TABLE user_user
    id                   bigint(20)        NOT NULL AUTO_INCREMENT,
    user_code            varchar(40)       NOT NULL COMMENT '用户编码',
    user_name            varchar(20)       NOT NULL COMMENT '用户名',
-   pass_word            varchar(20)       NOT NULL COMMENT '密码',
+   pass_word            varchar(40)       NOT NULL COMMENT '密码',
    gmt_create           DATETIME          COMMENT '创建时间',
    gmt_modified         DATETIME          COMMENT '修改时间',
    PRIMARY KEY (id)
@@ -34,7 +34,7 @@ CREATE TABLE user_account
 CREATE TABLE finance_recharge_detail
 (
     id                  bigint(20)          NOT NULL AUTO_INCREMENT,
-    recharge_code       varchar(40)         NOT NULL COMMENT '充值流水编码',
+    recharge_code       varchar(60)         NOT NULL COMMENT '充值流水编码',
     account_code        varchar(40)         NOT NULL COMMENT '账户编码',
     recharge_money      decimal(16, 2)      DEFAULT NULL COMMENT '充值金额，保留两位小数',
     recharge_mode       varchar(1)          NOT NULL COMMENT '充值方式：0、微信，1、支付宝，3、银行卡',
