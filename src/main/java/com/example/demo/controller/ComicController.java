@@ -57,4 +57,36 @@ public class ComicController {
         return JsonResult.asTrueModel(result);
     }
 
+    /**
+     * 漫画详情信息展示
+     * @author Canon4G
+     * @param comicCode     漫画编码
+     * @return JsonResult
+     */
+    @ResponseBody
+    @RequestMapping(value = "getComicDetails", method = RequestMethod.POST)
+    public JsonResult getComicDetails(@RequestParam String comicCode) {
+        Map<String, Object> result = new HashMap<>();
+        CommodityComic comic = commodityComicManager.getComicInfo(new CommodityComic.Builder().comicCode(comicCode).build());
+        result.put("comic", comic);
+        return JsonResult.asTrueModel(result);
+    }
+
+    /**
+     * 漫画购买
+     * @author
+     * @param request       request
+     * @param comicCode     漫画编码
+     * @param buyComicNum   购买漫画数量
+     * @return JsonResult
+     */
+    @ResponseBody
+    @RequestMapping(value = "buyComic", method = RequestMethod.POST)
+    public JsonResult buyComic(HttpServletRequest request, @RequestParam String comicCode, @RequestParam String buyComicNum) {
+        Map<String, Object> result = new HashMap<>();
+
+        // TODO: 购买漫画的业务逻辑
+
+        return null;
+    }
 }
