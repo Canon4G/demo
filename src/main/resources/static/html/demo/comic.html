@@ -1,5 +1,22 @@
  <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
  <link rel="stylesheet" href="/css/page.css">
+ <style>
+     .center-in-center{
+         position: absolute;
+         top: 50%;
+         left: 50%;
+         -webkit-transform: translate(-50%, -50%);
+         -moz-transform: translate(-50%, -50%);
+         -ms-transform: translate(-50%, -50%);
+         -o-transform: translate(-50%, -50%);
+         transform: translate(-50%, -50%);
+         z-index:99999;
+         border:1px solid #5131ff;
+         border-radius:25px;
+         background: whitesmoke;
+     }
+     .xwZmask {position: fixed;top:0;left:0; background:#000;-moz-opacity: 0.3;opacity: .30;filter: alpha(opacity=30);width: 100%;height: 100%;zoom: 1;}
+ </style>
 
 <div>
     <h2 class="text-info">漫画</h2>
@@ -17,14 +34,14 @@
     </select>
     <input style="display: none" name="" placeholder="" type="text" value="" id="comicType">
     <button type="button" class="btn btn-primary" style="float: right">
-        <span class="glyphicon glyphicon-search" onclick="searchComic()">&nbsp;搜索&nbsp;</span>
+        <span class="glyphicon glyphicon-search" onclick="searchComic()"></span> 搜索
     </button>
     <br>
 </div>
 
  <!-- 按钮和下面列表之间的间隔-->
 <div class="splitter"> <br> </div>
-
+<!--列表-->
 <div>
     <table class="table table-hover table-bordered" id="comicList">
         <thead>
@@ -67,8 +84,33 @@
         </tbody>
     </table>
 </div>
+<!--分页-->
+ <div id="comicPage" class="xwPager" style="display: none"></div>
+ <!--购买弹窗-->
+ <div class="center-in-center" id="consumeWin" style="display: none; ">
+     <div>
+         <h2 class="text-primary" align="center">漫画购买</h2><br>
+     </div>
+     <form role="form" >
+         <div class="form-group">
+             <label for="buyComicName" class="text-primary">漫画名称</label>
+             <input type="text" class="form-control" id="buyComicName" readonly="readonly"/>
+             <label for="buyComicPrice" class="text-primary">漫画价格</label>
+             <input type="text" class="form-control" id="buyComicPrice" readonly="readonly"/>
+             <label for="buyComicType" class="text-primary">漫画类型</label>
+             <input type="text" class="form-control" id="buyComicType" readonly="readonly"/>
+             <label for="buyComicNum" class="text-primary">购买数量</label>
+             <input type="text" class="form-control" id="buyComicNum"  autocomplete="off" placeholder="请输入购买的数量"/>
+             <input type="hidden" class="form-control" id="buyComicCode"/>
+         </div>
+         <input class="btn btn-primary " onclick="toConsume()" type="button" value="确认购买">
+         <input class="btn btn-primary " style="float: right;" onclick="closeConsumeWin()" type="button" value="关闭">
+     </form>
+ </div>
+ <!-- 弹窗遮罩层 -->
+ <div class="xwZmask" style="display:none" id="mask"></div>
 
-<div id="comicPage" class="xwPager" style="display: none"></div>
+
 
  <script src="/js/base/jquery-3.3.1.min.js"></script>
  <script src="/js/base/jquery.pager.js"></script>

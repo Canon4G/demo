@@ -31,7 +31,7 @@ function getComicList(pageNum) {
                     + '<td>' + checkComicTypeText(list[i].comicType) + '</td>'
                     + '<td>' + list[i].comicInventory + '</td>'
                     + '<td>'
-                    + "<a>购买</a>"
+                    + "<a onclick='showConsumeWin(\"" + list[i].comicCode + "\")'>购买</a>"
                     + '</td>');
                 $("#comicList tbody").append(tr);
             }
@@ -74,5 +74,52 @@ function comicPageClick(page) {
 $("#comicSelect").on("change", function () {
     $("#comicType").val($("option:selected",this).val());
 });
+
+function showConsumeWin(comicCode) {
+    $.ajax({
+        type: 'POST',
+        url: '/comic/getComicDetails',
+        data: {
+            "comicCode": comicCode
+        },
+        success: function (data) {
+            if ('success' !== data.code) {
+                return;
+            }
+            var price = data.data.comic.comicPrice + '（元）/ 本';
+            $("#buyComicName").val(data.data.comic.comicName);
+            $("#buyComicType").val(checkComicTypeText(data.data.comic.comicType));
+            $("#buyComicPrice").val(price);
+            $("#buyComicCode").val(data.data.comic.comicCode);
+            $("#mask").show();
+            $("#consumeWin").show();
+        }
+    });
+}
+
+function closeConsumeWin() {
+    $("#consumeWin").hide();
+    $("#mask").hide();
+}
+
+function toConsume() {
+    $.ajax({
+        type: 'POST',
+        url: '/comic/buyComic',
+        data: {
+            "comicCode": $("#buyComicCode").val(),
+            "buyComicNum": $("#buyComicNum").val()
+        },
+        success: function (data) {
+            if ('success' !== data) {
+                alert(data.data.returnMsg);
+                return;
+            }
+            alert(data.data.returnMsg);
+            closeConsumeWin();
+            initIndex();
+        }
+    });
+}
 
 
