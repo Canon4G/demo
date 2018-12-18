@@ -8,7 +8,7 @@ public enum RechargeMode {
 
     WEI_CHAT("0", "微信"),
     ALI_PAY("1", "支付宝"),
-    BANK("3", "银行卡");
+    BANK("2", "银行卡");
 
 
     private String value;

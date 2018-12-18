@@ -47,17 +47,18 @@ public class RechargeController extends BaseController {
         User user = checkUserSession(request);
         // 参数校验
         if (null == user) {
-            return JsonResult.asFalse();
+            result.put("returnMsg", "请您登录后再充值");
+            return JsonResult.asFalseModel(result);
         }
         if (StringUtils.isBlank(money)) {
             result.put("returnMsg", "充值金额不能为空");
             return JsonResult.asFalseModel(result);
         }
-        if (StringUtil.isNumericOrDecimal(money)) {
+        if (!StringUtil.isNumericOrDecimal(money)) {
             result.put("returnMsg", "充值金额必须是数字型");
             return JsonResult.asFalseModel(result);
         }
-        if (StringUtils.isBlank(mode)) {
+        if (StringUtils.isBlank(mode) || "-1".equals(mode)) {
             result.put("returnMsg", "请选择正确的充值方式");
             return JsonResult.asFalseModel(result);
         }

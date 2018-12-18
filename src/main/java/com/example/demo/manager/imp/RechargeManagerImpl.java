@@ -71,7 +71,7 @@ public class RechargeManagerImpl implements RechargeManager {
         // 账户编码
         String accountCode = userAccount.getAccountCode();
         // 当前账户余额
-        BigDecimal accountMoney = userAccount.getAccountMoney();
+        BigDecimal accountMoney = (null == userAccount.getAccountMoney()) ? new BigDecimal("0.00") : userAccount.getAccountMoney();
         // 生成一条充值流水
         rechargeDetailMapper.insertSelective(new RechargeDetail.Builder()
                 .accountCode(accountCode)
