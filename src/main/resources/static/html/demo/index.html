@@ -5,6 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>主界面</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+
+    <style>
+        .center-in-center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            z-index:99999;
+            border:1px solid #5131ff;
+            border-radius:25px;
+            background: whitesmoke;
+        }
+        .xwZmask {position: fixed;top:0;left:0; background:#000;-moz-opacity: 0.3;opacity: .30;filter: alpha(opacity=30);width: 100%;height: 100%;zoom: 1;}
+
+    </style>
 </head>
 <body>
 
@@ -12,15 +31,21 @@
 <nav class="navbar navbar-inverse">
     <div class="container-fluid">
         <div class="navbar-header">
-            <a class="navbar-brand" title="logoTitle" href="#">logo</a>
+            <a class="navbar-brand" title="logoTitle" target="mainFrame" href="welcome.html">CanonInD</a>
         </div>
         <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li role="presentation">
-                    <a href="#">当前用户：<span class="badge">Canon4G</span></a>
+                    <a href="#" id="accountMoney">账户余额：<span class="badge">0.00</span> 元</a>
+                </li>
+                <li role="presentation">
+                    <a href="#"  id="userName">当前用户：<span class="badge">Canon4G</span></a>
                 </li>
                 <li>
-                    <a><span class="glyphicon glyphicon-lock" onclick="logout()"></span>退出登录</a>
+                    <a><span class="glyphicon glyphicon-lock" onclick="openRechargeWin()"></span>用户充值</a>
+                </li>
+                <li>
+                    <a href="../../login.html"><span class="glyphicon glyphicon-lock" onclick="logout()"></span>退出登录</a>
                 </li>
             </ul>
         </div>
@@ -72,19 +97,46 @@
         <!--<iframe src="welcome.html" id="mainFrame" name="mainFrame" scrolling="no"-->
                 <!--frameborder="0" width="100%" frameBorder="0" onload="this.height=this.contentWindow.document.body.scrollHeight" >-->
         <!--</iframe>-->
-        <iframe src="welcome.html" id="mainFrame" name="mainFrame" scrolling="no"
+        <iframe src="/html/demo/welcome.html" id="mainFrame" name="mainFrame" scrolling="no"
                 frameborder="0" width="100%" frameBorder="0" onload="changeFrameHeight()" >
         </iframe>
     </div>
 
+
 </div>
+
+<!-- 充值弹窗-->
+<div class="center-in-center" id="rechargeWin" style="display: none; ">
+    <div>
+        <h1 class="text-primary" align="center">用户充值</h1><br>
+    </div>
+    <form role="form">
+        <div class="form-group">
+            <label for="rechargeMoney" class="text-primary">充值金额</label>
+            <input type="text" class="form-control" id="rechargeMoney" />
+            <label class="text-primary">充值类型&nbsp;&nbsp;</label>
+            <select id="rechargeSelect" class="form-control">
+                <option value="-1" selected="selected">全部</option>
+                <option value="0">微信</option>
+                <option value="1">支付宝</option>
+                <option value="2">银行卡</option>
+            </select>
+            <input style="display: none" name="" placeholder="" type="text" value="" id="rechargeType">
+        </div>
+        <input class="btn btn-primary " onclick="toRecharge()" type="button" value="确认充值">
+        <input class="btn btn-primary " style="float: right;" onclick="closeRechargeWin()" type="button" value="关闭">
+    </form>
+    <br>
+</div>
+
 <!-- 底部页脚部分 -->
 <div class="footer" style="clear: both">
     <p class="text-center">
         2018 &copy; Canon4G.
     </p>
 </div>
-
+<!-- 弹窗遮罩层 -->
+<div class="xwZmask" style="display:none" id="mask"></div>
 <script type="text/javascript">
     // $(".nav li").click(function() {
     //     $(".active").removeClass('active');
