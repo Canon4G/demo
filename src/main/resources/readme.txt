@@ -48,7 +48,7 @@ CREATE TABLE finance_recharge_detail
 CREATE TABLE finance_consume_detail
 (
     id                  bigint(20)          NOT NULL AUTO_INCREMENT,
-    consume_code        varchar(40)         NOT NULL COMMENT '消耗流水编码',
+    consume_code        varchar(60)         NOT NULL COMMENT '消耗流水编码',
     account_code        varchar(40)         NOT NULL COMMENT '账户编码',
     consume_money       decimal(16, 2)      DEFAULT NULL COMMENT '消耗金额，保留两位小数',
     product_code        varchar(40)         NOT NULL COMMENT '商品编码',
