@@ -33,16 +33,6 @@ public class UserController extends BaseController {
     @Autowired
     UserManager userManager;
 
-    @RequestMapping(value = "/")
-    public String main() {
-        return "redirect:/skipToLogin";
-    }
-
-    @RequestMapping(value = "/skipToLogin", method = RequestMethod.GET)
-    public String skipToLogin() {
-        return "login.html";
-    }
-
     /**
      * 用户登录验证
      * @author Canon4G
@@ -65,6 +55,7 @@ public class UserController extends BaseController {
             result.put("returnMsg", "该用户不存在！");
             return JsonResult.asFalseModel(result);
         }
+        password = MD5Utils.MD5Encode(password,"utf8");
         // 判断密码是否正确
         if (!password.equals(user.getPassWord())) {
             result.put("returnMsg", "密码错误！");
@@ -108,6 +99,14 @@ public class UserController extends BaseController {
         }
         if (StringUtils.isBlank(password)) {
             result.put("returnMsg", "密码不能为空！");
+            return JsonResult.asFalseModel(result);
+        }
+        if (6 > username.length()) {
+            result.put("returnMsg", "用户名不能小于6位！");
+            return JsonResult.asFalseModel(result);
+        }
+        if (6 > password.length()) {
+            result.put("returnMsg", "密码不能小于6位！");
             return JsonResult.asFalseModel(result);
         }
         if (20 < username.length()) {
