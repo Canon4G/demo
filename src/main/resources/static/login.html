@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>登录界面</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/xwDialog.css">
+    <style>
+        .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-top: 15%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        .center-in-center{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -webkit-transform: translate(-50%, -50%);
+            -moz-transform: translate(-50%, -50%);
+            -ms-transform: translate(-50%, -50%);
+            -o-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+        }
+        .xwZmask {z-index: 100000;position: fixed;top:0;left:0; background:#000;-moz-opacity: 0.3;opacity: .30;filter: alpha(opacity=30);width: 100%;height: 100%;zoom: 1;}
+    </style>
+
+
+</head>
+
+<body>
+<div id="Layer1" style="position:fixed; left:0px; top:0px; width:100%; height:100%">
+    <img src="/img/WechatIMG1.jpeg" width="100%" height="100%"/>
+</div>
+<div class="container">
+
+    <div class="row clearfix">
+        <div class="col-md-8 column">
+        </div>
+        <div class="col-md-4 column" id="loginWin">
+            <div>
+                <h1 class="text-primary">用户登录</h1><br>
+            </div>
+            <form role="form">
+                <div class="form-group">
+                    <label for="username" class="text-primary" >User name</label>
+                    <input type="text" class="form-control" id="username" autocomplete="off" placeholder="请输入登录账号"/>
+                </div>
+                <div class="form-group">
+                    <label for="password" class="text-primary">Password</label>
+                    <input type="password" class="form-control" id="password" autocomplete="off" placeholder="请输入密码"/>
+                </div>
+                <input class="btn btn-primary btn-lg" onclick="toLogin()" type="button" value="登录">
+                <input class="btn btn-primary btn-lg" onclick="openSignWin()" type="button" value="注册">
+            </form>
+        </div>
+    </div>
+
+</div>
+
+<!-- 用户注册弹窗 -->
+<div class="center-in-center" id="signWin" style="display: none;">
+    <div>
+        <h1 class="text-primary" align="center">用户注册</h1><br>
+    </div>
+    <form role="form">
+        <div class="form-group">
+            <label for="username" class="text-primary">注册账号</label>
+            <input type="text" class="form-control" id="registerUser" autocomplete="off" placeholder="请输入注册账号"/>
+        </div>
+        <div class="form-group">
+            <label for="password" class="text-primary">密码</label>
+            <input type="password" class="form-control" id="registerPwd" autocomplete="off" placeholder="请输入密码"/>
+        </div>
+        <div class="form-group">
+            <label for="password" class="text-primary">确认密码</label>
+            <input type="password" class="form-control" id="registerPwd2" autocomplete="off" placeholder="请再次输入密码"/>
+        </div>
+        <input class="btn btn-primary btn-lg" onclick="toRegister()" type="button" value="确认注册">
+        <input class="btn btn-primary btn-lg" onclick="closeSignWin()" type="button" value="关闭">
+    </form>
+</div>
+<!-- 弹窗遮罩层 -->
+<div class="xwZmask" style="display:none" id="mask"></div>
+<!-- 提示信息-->
+<!--<div class = "xwPopCover" style="display:none" id="returnMsgWin">-->
+    <!--<div class="xwDialog xwDialogConfirm">-->
+        <!--<h2 class="dialogT">温馨提示</h2>-->
+        <!--<div class="dialogC">-->
+            <!--<div class="info"><p id="returnMsg"></p></div>-->
+        <!--</div>-->
+        <!--<div class="dialogB">-->
+            <!--<div class="cont">-->
+                <!--<a href="javascript:hideReturnMsgWin()" class="xwBtn btnRed btnYes"><span class="text">确定</span><span class="ing"></span></a>-->
+            <!--</div>-->
+        <!--</div>-->
+    <!--</div>-->
+<!--</div>-->
+
+
+
+
+
+
+    <script src="/js/demo/login.js"></script>
+
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
