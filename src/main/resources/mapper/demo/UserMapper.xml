@@ -34,9 +34,23 @@
     </where>
   </select>
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <select id="getInfoList" resultMap="BaseResultMap" parameterType="com.example.demo.model.User">
+    select
+    <include refid="Base_Column_List" />
+    from user_user
+    <where>
+      <if test="isAdmin != null and '' != isAdmin and '-1' != isAdmin">
+        and is_admin = #{isAdmin}
+      </if>
+      <if test="userName != null and '' != userName">
+        and user_name = #{userName}
+      </if>
+    </where>
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_user
-    where id = #{id,jdbcType=BIGINT}
+    where user_code = #{userCode,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.example.demo.model.User" >
     insert into user_user (id, user_code, user_name, 
@@ -108,7 +122,7 @@
         gmt_modified = #{gmtModified,jdbcType=DATE},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where user_code = #{userCode,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.model.User" >
     update user_user

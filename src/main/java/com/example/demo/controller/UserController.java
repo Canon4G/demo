@@ -4,6 +4,7 @@ import com.example.demo.entity.JsonResult;
 import com.example.demo.manager.UserManager;
 import com.example.demo.model.User;
 import com.example.demo.util.MD5Utils;
+import com.example.demo.util.MyPage;
 import com.example.demo.util.UUIDHelper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -29,6 +30,8 @@ import java.util.Map;
 public class UserController extends BaseController {
 
     private static Logger logger = LoggerFactory.getLogger(UserController.class);
+
+    private static final Integer PAGESIZE = 10;
 
     @Autowired
     UserManager userManager;
@@ -86,11 +89,15 @@ public class UserController extends BaseController {
      * @param username   用户名
      * @param password   密码
      * @param rePassword 确认密码
+     * @param isAdmin    用户权限
      * @return JsonResult
      */
     @ResponseBody
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public JsonResult register(@RequestParam String username, @RequestParam String password, @RequestParam String rePassword) {
+    public JsonResult register(@RequestParam String username,
+                               @RequestParam String password,
+                               @RequestParam String rePassword,
+                               @RequestParam String isAdmin) {
         Map<String, Object> result = new HashMap<>();
         // 参数校验
         if (StringUtils.isBlank(username)) {
@@ -133,9 +140,134 @@ public class UserController extends BaseController {
                 .userCode(UUIDHelper.uuid())
                 .userName(username)
                 .passWord(MD5Utils.MD5Encode(password, "utf8"))
+                .isAdmin(isAdmin)
                 .gmtCreate(new Date())
                 .build());
         result.put("returnMsg", "注册成功！");
+        return JsonResult.asTrueModel(result);
+    }
+
+    /**
+     * 用户信息展示(分页)
+     * @author Canon4G
+     * @param userName         用户名称
+     * @param userType         用户角色
+     * @param pageNum          当前页码
+     * @return JsonResult
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getUserList", method = RequestMethod.POST)
+    public JsonResult getUserList(@RequestParam String userName,
+                                  @RequestParam String userType,
+                                  @RequestParam int pageNum) {
+        Map<String, Object> result = new HashMap<>();
+        User user = new User.Builder().userName(userName).isAdmin(userType).build();
+        MyPage<User> myPage = userManager.getUserInfoListPage(user, pageNum, PAGESIZE);
+        result.put("list", myPage.getList());
+        result.put("count", myPage.getCount());
+        result.put("pageNum", pageNum);
+        result.put("pageSize", PAGESIZE);
+        long pageTotal = (myPage.getCount() + PAGESIZE - 1) / PAGESIZE;
+        result.put("pageTotal", String.valueOf(pageTotal));
+        return JsonResult.asTrueModel(result);
+    }
+
+
+
+    /**
+     * 获得用户详情
+     * @author Canon4G
+     * @param userCode  用户编码
+     * @return  JsonResult
+     */
+    @ResponseBody
+    @RequestMapping(value = "/getUserDetails", method = RequestMethod.POST)
+    public JsonResult getUserDetails(@RequestParam String userCode) {
+        Map<String, Object> result = new HashMap<>();
+        // 参数校验
+        if (StringUtils.isBlank(userCode)) {
+            result.put("returnMsg", "修改用户信息失败");
+            return JsonResult.asFalseModel(result);
+        }
+        User user = userManager.getUserInfo(new User.Builder().userCode(userCode).build());
+        result.put("user", user);
+        return JsonResult.asTrueModel(result);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
+    public JsonResult updateUser(@RequestParam String userCode,
+                                 @RequestParam String userName,
+                                 @RequestParam String password,
+                                 @RequestParam String password2,
+                                 @RequestParam String password3,
+                                 @RequestParam String isAdmin,
+                                 @RequestParam String isAdmin2) {
+        Map<String, Object> result = new HashMap<>();
+        // 参数校验
+        if (StringUtils.isBlank(userName)) {
+            result.put("returnMsg", "用户名不能为空!");
+            return JsonResult.asFalseModel(result);
+        }
+        User user = userManager.getUserInfo(new User.Builder().userCode(userCode).build());
+        if (!userName.equals(user.getUserName())) {
+            User user2 = userManager.getUserInfo(new User.Builder().userName(userName).build());
+            if (null != user2) {
+                result.put("returnMsg", "用户名已存在!");
+                return JsonResult.asFalseModel(result);
+            }
+        }
+        if (StringUtils.isBlank(password)) {
+            result.put("returnMsg", "密码不能为空!");
+            return JsonResult.asFalseModel(result);
+        }
+        if (!MD5Utils.MD5Encode(password, "utf8").equals(user.getPassWord())) {
+            result.put("returnMsg", "原密码不正确!");
+            return JsonResult.asFalseModel(result);
+        }
+        if (6 > userName.length()) {
+            result.put("returnMsg", "用户名不能小于6位！");
+            return JsonResult.asFalseModel(result);
+        }
+        if (6 > password2.length()) {
+            result.put("returnMsg", "密码不能小于6位！");
+            return JsonResult.asFalseModel(result);
+        }
+        if (20 < userName.length()) {
+            result.put("returnMsg", "用户名不能超过20位！");
+            return JsonResult.asFalseModel(result);
+        }
+        if (20 < password2.length()) {
+            result.put("returnMsg", "密码不能超过20位！");
+            return JsonResult.asFalseModel(result);
+        }
+        // 判断两次密码是否一致
+        if (!password3.equals(password2)) {
+            result.put("returnMsg", "两次密码不一致！");
+            return JsonResult.asFalseModel(result);
+        }
+        isAdmin = (StringUtils.isBlank(isAdmin2) || "-1".equals(isAdmin2) || isAdmin2.equals(isAdmin)) ? isAdmin : isAdmin2;
+        userManager.updateUser(new User.Builder()
+                .userName(userName)
+                .passWord(MD5Utils.MD5Encode(password2, "utf8"))
+                .isAdmin(isAdmin)
+                .gmtModified(new Date())
+                .build());
+        result.put("returnMsg", "修改成功!");
+        return JsonResult.asTrueModel(result);
+    }
+
+    @ResponseBody
+    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
+    public JsonResult deleteUser(@RequestParam String userCode) {
+        Map<String, Object> result = new HashMap<>();
+        // 参数校验
+        if (StringUtils.isBlank(userCode)) {
+            result.put("returnMsg", "删除用户信息失败");
+            return JsonResult.asFalseModel(result);
+        }
+        userManager.deleteUser(userCode);
+        result.put("returnMsg", "删除用户信息成功");
         return JsonResult.asTrueModel(result);
     }
 }
