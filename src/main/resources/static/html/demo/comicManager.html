@@ -1,0 +1,162 @@
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/page.css">
+<style>
+    .center-in-center{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        z-index:99999;
+        border:1px solid #5131ff;
+        border-radius:25px;
+        background: whitesmoke;
+    }
+    .xwZmask {position: fixed;top:0;left:0; background:#000;-moz-opacity: 0.3;opacity: .30;filter: alpha(opacity=30);width: 100%;height: 100%;zoom: 1;}
+</style>
+
+<div>
+    <h2 class="text-info">漫画管理</h2>
+</div>
+
+<div>
+    <label for="comicNameManager" style="float: left">漫画名称&nbsp;&nbsp;</label>
+    <input class="form-control" style="width: 150px; float: left;" id="comicNameManager">
+    <label for="comicNumManager" style="float: left">漫画库存&nbsp;&nbsp;</label>
+    <input class="form-control" style="width: 150px; float: left;" id="comicNumManager">
+    <label style="float: left">漫画类型&nbsp;&nbsp;</label>
+    <select id="comicSelectManager" class="form-control" style="width: 150px">
+        <option value="-1" selected="selected">全部</option>
+        <option value="0">港漫</option>
+        <option value="1">日漫</option>
+        <option value="2">欧美漫画</option>
+    </select>
+    <input style="display: none" name="" placeholder="" type="text" value="" id="comicTypeManager">
+    <br>
+    <button type="button" class="btn btn-primary" >
+        <span class="glyphicon glyphicon-search" onclick="showAddComicWin()"></span> 添加
+    </button>
+
+    <button type="button" class="btn btn-primary" style="float: right">
+        <span class="glyphicon glyphicon-search" onclick="searchComicManager()"></span> 搜索
+    </button>
+    <br>
+</div>
+
+<!-- 按钮和下面列表之间的间隔-->
+<div class="splitter"> <br> </div>
+<!--列表-->
+<div>
+    <table class="table table-hover table-bordered" id="comicManagerList">
+        <thead>
+        <tr>
+            <th>
+                漫画名称
+            </th>
+            <th>
+                漫画单价
+            </th>
+            <th>
+                漫画类型
+            </th>
+            <th>
+                漫画库存
+            </th>
+            <th style="width: 15%">
+                操作
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--</tr>-->
+        </tbody>
+    </table>
+</div>
+<!--分页-->
+<div id="comicManagerPage" class="xwPager" style="display: none"></div>
+<!--添加商品信息弹窗-->
+<div class="center-in-center" id="addComicWin" style="display: none; ">
+    <div>
+        <h2 class="text-primary" align="center">添加商品信息</h2><br>
+    </div>
+    <form role="form" >
+        <div class="form-group">
+            <label for="addComicName" class="text-primary">漫画名称</label>
+            <input type="text" class="form-control" id="addComicName" />
+            <label for="addComicPrice" class="text-primary">漫画价格</label>
+            <input type="text" class="form-control" id="addComicPrice" />
+            <label for="addComicInventory" class="text-primary">库存</label>
+            <input type="text" class="form-control" id="addComicInventory"/>
+            <label for="addComicType" class="text-primary">漫画类型</label>
+            <select id="addComicSelect" class="form-control" style="width: 150px">
+                <option value="-1" selected="selected">请选择类型</option>
+                <option value="0">港漫</option>
+                <option value="1">日漫</option>
+                <option value="2">欧美漫画</option>
+            </select>
+            <input style="display: none" name="" placeholder="" type="text" value="" id="addComicType">
+        </div>
+        <input class="btn btn-primary " onclick="toAddComic()" type="button" value="确认添加">
+        <input class="btn btn-primary " style="float: right;" onclick="closeAddComicWin()" type="button" value="关闭">
+    </form>
+</div>
+
+<!--修改商品信息弹窗-->
+<div class="center-in-center" id="updateComicWin" style="display: none; ">
+    <div>
+        <h2 class="text-primary" align="center">修改商品信息</h2><br>
+    </div>
+    <form role="form" >
+        <div class="form-group">
+            <label for="updateComicName" class="text-primary">漫画名称</label>
+            <input type="text" class="form-control" id="updateComicName" />
+            <label for="updateComicPrice" class="text-primary">漫画价格</label>
+            <input type="text" class="form-control" id="updateComicPrice" />
+            <label for="updateComicInventory" class="text-primary">库存</label>
+            <input type="text" class="form-control" id="updateComicInventory"/>
+            <label for="updateComicType" class="text-primary">漫画类型</label>
+            <input type="text" class="form-control" id="updateComicType" readonly="readonly" />
+            <label for="updateComicType2" class="text-primary">修改类型</label>
+            <select id="updateComicSelect" class="form-control" style="width: 150px">
+                <option value="-1" selected="selected">请选择类型</option>
+                <option value="0">港漫</option>
+                <option value="1">日漫</option>
+                <option value="2">欧美漫画</option>
+            </select>
+            <input style="display: none" name="" placeholder="" type="text" value="" id="updateComicType2">
+            <input type="hidden" class="form-control" id="updateComicCode"/>
+        </div>
+        <input class="btn btn-primary " onclick="toUpdateComic()" type="button" value="确认修改">
+        <input class="btn btn-primary " style="float: right;" onclick="closeUpdateComicWin()" type="button" value="关闭">
+    </form>
+</div>
+
+
+<!-- 弹窗遮罩层 -->
+<div class="xwZmask" style="display:none" id="mask"></div>
+
+
+
+<script src="/js/base/jquery-3.3.1.min.js"></script>
+<script src="/js/base/jquery.pager.js"></script>
+<script src="/js/demo/comicManager.js"></script>
+<script src="/js/base/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
