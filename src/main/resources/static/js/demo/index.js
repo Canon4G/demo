@@ -15,6 +15,11 @@ function initIndex() {
                 $("#comicPage2").show();
                 $("#rechargePage").show();
                 $("#consumePage").show();
+                $("#userPage").show();
+            } else if ('1' === data.data.isAdmin) {
+                $("#comicPage2").show();
+                $("#rechargePage").show();
+                $("#consumePage").show();
             }
             $("#accountMoney span").html(data.data.accountMoney);
             $("#userName span").html(data.data.userName);
