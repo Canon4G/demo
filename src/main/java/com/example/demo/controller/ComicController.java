@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.JsonResult;
+import com.example.demo.enums.ComicType;
 import com.example.demo.manager.CommodityComicManager;
 import com.example.demo.model.CommodityComic;
 import com.example.demo.util.MyPage;
@@ -189,6 +190,13 @@ public class ComicController {
             return JsonResult.asFalseModel(result);
         }
         comicInventory = (StringUtils.isBlank(comicInventory)) ? "0" : comicInventory;
+        if (ComicType.JP_COMIC.getDesc().equals(comicType)) {
+            comicType = ComicType.JP_COMIC.getValue();
+        } else if (ComicType.HK_COMIC.getDesc().equals(comicType)) {
+            comicType = ComicType.HK_COMIC.getValue();
+        } else if (ComicType.EU_COMIC.getDesc().equals(comicType)) {
+            comicType = ComicType.EU_COMIC.getValue();
+        }
         comicType = (StringUtils.isBlank(comicType2) || "-1".equals(comicType2) || comicType2.equals(comicType)) ? comicType : comicType2;
         commodityComicManager.updateComic(comicName, comicType, comicPrice, comicCode, comicInventory);
         result.put("returnMsg", "修改成功!");

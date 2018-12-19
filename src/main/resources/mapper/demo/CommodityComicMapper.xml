@@ -30,6 +30,9 @@
       <if test="comicCode != null and '' != comicCode">
         and comic_code = #{comicCode}
       </if>
+      <if test="comicName != null and '' != comicName">
+        and comic_name = #{comicName}
+      </if>
     </where>
   </select>
 

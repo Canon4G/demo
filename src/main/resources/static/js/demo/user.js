@@ -9,6 +9,20 @@ function init() {
 // TODO: 分页
 function getUserList(pageNum) {
     $("#userManagerList tbody").empty();
+    $.ajax({
+        type: 'POST',
+        url: '/getUserList',
+        data: {
+            "userName": $("#userNameManager").val(),
+            "userType": $("#userTypeManager").val(),
+            "pageNum": pageNum
+        },
+        success: function (data) {
+            if ('success' !== data.code) {
+                return;
+            }
+        }
+    });
 }
 
 function userPageClick(page) {

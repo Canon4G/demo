@@ -32,7 +32,7 @@ function getComicList(pageNum) {
                     + '<td>' + checkComicTypeText(list[i].comicType) + '</td>'
                     + '<td>' + list[i].comicInventory + '</td>'
                     + '<td>'
-                    + "<a onclick='showConsumeWin(\"" + list[i].comicCode + "\")'>购买</a>"
+                    + "<a onclick='showConsumeWin(\"" + list[i].comicCode + "\")' class='btn btn-success'>购买</a>"
                     + '</td>');
                 $("#comicList tbody").append(tr);
             }
