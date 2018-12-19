@@ -18,7 +18,7 @@ public class CommodityComic implements Serializable {
 
     private BigDecimal comicPrice;          // 漫画单价
 
-    private Long comicInventory;            // 漫画库存
+    private String comicInventory;          // 漫画库存
 
     private Date gmtCreate;                 // 创建时间
 
@@ -27,7 +27,7 @@ public class CommodityComic implements Serializable {
     public CommodityComic() {
     }
 
-    public CommodityComic(Long id, String comicCode, String comicName, String comicType, BigDecimal comicPrice, Long comicInventory, Date gmtCreate, Date gmtModified) {
+    public CommodityComic(Long id, String comicCode, String comicName, String comicType, BigDecimal comicPrice, String comicInventory, Date gmtCreate, Date gmtModified) {
         this.id = id;
         this.comicCode = comicCode;
         this.comicName = comicName;
@@ -89,11 +89,11 @@ public class CommodityComic implements Serializable {
         this.comicPrice = comicPrice;
     }
 
-    public Long getComicInventory() {
+    public String getComicInventory() {
         return comicInventory;
     }
 
-    public void setComicInventory(Long comicInventory) {
+    public void setComicInventory(String comicInventory) {
         this.comicInventory = comicInventory;
     }
 
@@ -119,7 +119,7 @@ public class CommodityComic implements Serializable {
         private String comicName;
         private String comicType;
         private BigDecimal comicPrice;
-        private Long comicInventory;
+        private String comicInventory;
         private Date gmtCreate;
         private Date gmtModified;
 
@@ -151,7 +151,7 @@ public class CommodityComic implements Serializable {
             return this;
         }
 
-        public Builder comicInventory(Long val) {
+        public Builder comicInventory(String val) {
             comicInventory = val;
             return this;
         }

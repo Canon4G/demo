@@ -9,7 +9,7 @@ CREATE TABLE user_user1
    user_code            varchar(40)       NOT NULL COMMENT '用户编码',
    user_name            varchar(20)       NOT NULL COMMENT '用户名',
    pass_word            varchar(40)       NOT NULL COMMENT '密码',
-   is_admin             varchar(1)        DEFAULT '1' COMMENT '用户权限，0、管理员，1、普通用户',
+   is_admin             varchar(1)        DEFAULT '2' COMMENT '用户权限，0、超级管理员，1、管理员，2、普通用户',
    gmt_create           DATETIME          COMMENT '创建时间',
    gmt_modified         DATETIME          COMMENT '修改时间',
    PRIMARY KEY (id)
@@ -68,7 +68,7 @@ CREATE TABLE commodity_comic
     comic_name          varchar(40)             NOT NULL COMMENT '漫画名称',
     comic_type          varchar(1)              NOT NULL COMMENT '漫画分类: 0、港慢，1、日漫，2、欧美漫画',
     comic_price         decimal(16,2)           NOT NULL COMMENT '价格, 保留两位小数',
-    comic_inventory     bigint(20)              NOT NULL COMMENT '库存',
+    comic_inventory     varchar(40)             NOT NULL COMMENT '库存',
     gmt_create          DATETIME                COMMENT '创建时间',
     gmt_modified        DATETIME                COMMENT '修改时间',
     PRIMARY KEY (id)
