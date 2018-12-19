@@ -27,6 +27,10 @@ function checkUserTypeText(s) {
     }
 }
 
+function searchUserManager() {
+    getUserList(1);
+}
+
 function showAddUserWin() {
     $("#addUserName").val("");
     $("#addUserPwd").val("");
