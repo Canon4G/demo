@@ -22,16 +22,19 @@ public class User implements Serializable {
 
     private Date gmtModified;           // 修改时间
 
+    private String isAdmin;             // 是否是管理员权限
+
     public User() {
     }
 
-    public User(Long id, String userCode, String userName, String passWord, Date gmtCreate, Date gmtModified) {
+    public User(Long id, String userCode, String userName, String passWord, Date gmtCreate, Date gmtModified, String isAdmin) {
         this.id = id;
         this.userCode = userCode;
         this.userName = userName;
         this.passWord = passWord;
         this.gmtCreate = gmtCreate;
         this.gmtModified = gmtModified;
+        this.isAdmin = isAdmin;
     }
 
     private User(Builder builder) {
@@ -41,6 +44,8 @@ public class User implements Serializable {
         setPassWord(builder.passWord);
         setGmtCreate(builder.gmtCreate);
         setGmtModified(builder.gmtModified);
+        setIsAdmin(builder.isAdmin);
+
     }
 
     public Long getId() {
@@ -91,6 +96,14 @@ public class User implements Serializable {
         this.gmtModified = gmtModified;
     }
 
+    public String getIsAdmin() {
+        return isAdmin;
+    }
+
+    public User setIsAdmin(String isAdmin) {
+        this.isAdmin = isAdmin;
+        return this;
+    }
 
     public static final class Builder {
         private Long id;
@@ -99,6 +112,7 @@ public class User implements Serializable {
         private String passWord;
         private Date gmtCreate;
         private Date gmtModified;
+        private String isAdmin;
 
         public Builder() {
         }
@@ -130,6 +144,11 @@ public class User implements Serializable {
 
         public Builder gmtModified(Date val) {
             gmtModified = val;
+            return this;
+        }
+
+        public Builder isAdmin(String val) {
+            isAdmin = val;
             return this;
         }
 

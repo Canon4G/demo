@@ -40,12 +40,15 @@ public class HeadController extends BaseController {
         }
         // 用户名
         String userName = user.getUserName();
+        // 用户权限
+        String isAdmin = user.getIsAdmin();
         // 通过用户编号查询账户信息
         UserAccount userAccountInfo = userAccountManager.getUserAccountInfo(new UserAccount.Builder().userCode(user.getUserCode()).build());
         // 账户余额
         BigDecimal accountMoney = (null == userAccountInfo.getAccountMoney()) ? new BigDecimal("0.00") : userAccountInfo.getAccountMoney().setScale(2, BigDecimal.ROUND_HALF_UP);
         result.put("userName", userName);
         result.put("accountMoney", accountMoney);
+        result.put("isAdmin", isAdmin);
         return JsonResult.asTrueModel(result);
     }
 }

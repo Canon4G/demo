@@ -8,9 +8,10 @@
     <result column="pass_word" property="passWord" jdbcType="VARCHAR" />
     <result column="gmt_create" property="gmtCreate" jdbcType="DATE" />
     <result column="gmt_modified" property="gmtModified" jdbcType="DATE" />
+    <result column="is_admin" property="isAdmin" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, user_code, user_name, pass_word, gmt_create, gmt_modified
+    id, user_code, user_name, pass_word, gmt_create, gmt_modified, is_admin
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 

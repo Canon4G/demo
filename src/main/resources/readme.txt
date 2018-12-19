@@ -9,6 +9,7 @@ CREATE TABLE user_user
    user_code            varchar(40)       NOT NULL COMMENT '用户编码',
    user_name            varchar(20)       NOT NULL COMMENT '用户名',
    pass_word            varchar(40)       NOT NULL COMMENT '密码',
+   is_admin             varchar(1)        NOT NULL COMMENT '用户权限，0、管理员，1、普通用户'
    gmt_create           DATETIME          COMMENT '创建时间',
    gmt_modified         DATETIME          COMMENT '修改时间',
    PRIMARY KEY (id)

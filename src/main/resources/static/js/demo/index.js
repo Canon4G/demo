@@ -11,6 +11,11 @@ function initIndex() {
             if (null === data.code) {
                 return;
             }
+            if ('0' === data.data.isAdmin) {
+                $("#comicPage2").show();
+                $("#rechargePage").show();
+                $("#consumePage").show();
+            }
             $("#accountMoney span").html(data.data.accountMoney);
             $("#userName span").html(data.data.userName);
         }
