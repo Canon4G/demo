@@ -7,7 +7,7 @@ import java.util.List;
 
 @Mapper
 public interface CommodityComicMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByComicCode(String comicCode);
 
     int insert(CommodityComic record);
 

@@ -28,4 +28,31 @@ public interface CommodityComicManager {
      */
     MyPage<CommodityComic> getComicInfoListPage(CommodityComic commodityComic, int pageNum, int pageSize);
 
+    /**
+     * 添加商品信息
+     * @author Canon4G
+     * @param comicName         漫画名称
+     * @param comicPrice        漫画价格
+     * @param comicInventory    漫画库存
+     * @param comicType         漫画类型
+     */
+    void addComic(String comicName, String comicPrice, String comicInventory, String comicType);
+
+    /**
+     * 修改商品信息
+     * @author Canon4G
+     * @param comicName         漫画名称
+     * @param comicType         漫画类型
+     * @param comicPrice        漫画价格
+     * @param comicCode         商品编码
+     * @param comicInventory    商品库存
+     */
+    void updateComic(String comicName, String comicType, String comicPrice, String comicCode, String comicInventory);
+
+    /**
+     * 删除商品信息
+     * @author Canon4G
+     * @param comicCode         商品编码
+     */
+    void deleteComic(String comicCode);
 }

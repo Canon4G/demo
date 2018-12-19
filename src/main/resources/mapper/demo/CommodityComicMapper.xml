@@ -7,7 +7,7 @@
     <result column="comic_name" property="comicName" jdbcType="VARCHAR" />
     <result column="comic_type" property="comicType" jdbcType="VARCHAR" />
     <result column="comic_price" property="comicPrice" jdbcType="DECIMAL" />
-    <result column="comic_inventory" property="comicInventory" jdbcType="BIGINT" />
+    <result column="comic_inventory" property="comicInventory" jdbcType="VARCHAR" />
     <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
     <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
   </resultMap>
@@ -41,15 +41,18 @@
       <if test="comicName != null and '' != comicName">
         and comic_name = #{comicName}
       </if>
+      <if test="comicInventory != null and '' != comicInventory">
+        and comic_inventory = #{comicInventory}
+      </if>
       <if test="comicType != null and '' != comicType and '-1' != comicType">
         and comic_type = #{comicType}
       </if>
     </where>
   </select>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByComicCode" parameterType="java.lang.String" >
     delete from commodity_comic
-    where id = #{id,jdbcType=BIGINT}
+    where comic_code = #{comicCode,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.example.demo.model.CommodityComic" >
     insert into commodity_comic (id, comic_code, comic_name, 
@@ -139,7 +142,7 @@
         gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where comic_code = #{comicCode,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.example.demo.model.CommodityComic" >
     update commodity_comic
