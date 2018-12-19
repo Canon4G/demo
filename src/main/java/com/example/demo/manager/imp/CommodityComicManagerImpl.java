@@ -3,6 +3,7 @@ package com.example.demo.manager.imp;
 import com.example.demo.manager.CommodityComicManager;
 import com.example.demo.mapper.CommodityComicMapper;
 import com.example.demo.model.CommodityComic;
+import com.example.demo.util.CodeUtil;
 import com.example.demo.util.MyPage;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -13,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -67,7 +70,17 @@ public class CommodityComicManagerImpl implements CommodityComicManager {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void addComic(String comicName, String comicPrice, String comicInventory, String comicType) {
-        // TODO: 添加商品信息
+        // 生成商品编码
+        String comicCode = "COMIC" + CodeUtil.getDateUUID();
+        // 新增商品信息
+        commodityComicMapper.insertSelective(new CommodityComic.Builder()
+                .comicCode(comicCode)
+                .comicName(comicName)
+                .comicPrice(new BigDecimal(comicPrice).setScale(2, BigDecimal.ROUND_HALF_UP))
+                .comicInventory(comicInventory)
+                .comicType(comicType)
+                .gmtCreate(new Date())
+                .build());
     }
 
     /**
@@ -82,7 +95,15 @@ public class CommodityComicManagerImpl implements CommodityComicManager {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void updateComic(String comicName, String comicType, String comicPrice, String comicCode, String comicInventory) {
-        // TODO: 添加商品信息
+        // 修改商品信息
+        commodityComicMapper.updateByPrimaryKeySelective(new CommodityComic.Builder()
+                .comicCode(comicCode)
+                .comicName(comicName)
+                .comicType(comicType)
+                .comicPrice(new BigDecimal(comicPrice).setScale(2, BigDecimal.ROUND_HALF_UP))
+                .comicInventory(comicInventory)
+                .gmtModified(new Date())
+                .build());
     }
 
     /**
@@ -93,6 +114,7 @@ public class CommodityComicManagerImpl implements CommodityComicManager {
     @Override
     @Transactional(propagation = Propagation.REQUIRED, rollbackFor = Exception.class)
     public void deleteComic(String comicCode) {
+        // 删除商品信息
         commodityComicMapper.deleteByComicCode(comicCode);
     }
 }
