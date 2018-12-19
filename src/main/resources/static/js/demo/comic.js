@@ -13,6 +13,7 @@ function getComicList(pageNum) {
         data: {
             "comicName": $("#comicName").val(),
             "comicType": $("#comicType").val(),
+            "comicInventory": $("#comicNum").val(),
             "pageNum": pageNum
         },
         success: function (data) {
@@ -35,10 +36,6 @@ function getComicList(pageNum) {
                     + '</td>');
                 $("#comicList tbody").append(tr);
             }
-
-            console.log(data.data.pageNum);
-            console.log(data.data.pageTotal);
-
             // 分页
             $('#comicPage').show();
             $("#comicPage").pager({
@@ -91,6 +88,7 @@ function showConsumeWin(comicCode) {
             $("#buyComicType").val(checkComicTypeText(data.data.comic.comicType));
             $("#buyComicPrice").val(price);
             $("#buyComicCode").val(data.data.comic.comicCode);
+            $("#buyComicInventory").val(data.data.comic.comicInventory);
             $("#mask").show();
             $("#consumeWin").show();
         }
