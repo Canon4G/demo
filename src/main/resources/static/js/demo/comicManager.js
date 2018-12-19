@@ -87,7 +87,7 @@ function showAddComicWin() {
 function toAddComic() {
     $.ajax({
         type: 'POST',
-        url: '',
+        url: '/comic/addComic',
         data: {
             "comicName": $("#addComicName").val(),
             "comicPrice": $("#addComicPrice").val(),

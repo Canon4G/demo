@@ -32,7 +32,8 @@ function toRegister() {
         data: {
             "username": $("#registerUser").val(),
             "password": $("#registerPwd").val(),
-            "rePassword": $("#registerPwd2").val()
+            "rePassword": $("#registerPwd2").val(),
+            "isAdmin": "2"
         },
         success: function (data) {
             if ('success' !== data.code) {
