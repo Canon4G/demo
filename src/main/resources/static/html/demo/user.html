@@ -1,0 +1,163 @@
+<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+<link rel="stylesheet" href="/css/page.css">
+<style>
+    .center-in-center{
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        z-index:99999;
+        border:1px solid #5131ff;
+        border-radius:25px;
+        background: whitesmoke;
+    }
+    .xwZmask {position: fixed;top:0;left:0; background:#000;-moz-opacity: 0.3;opacity: .30;filter: alpha(opacity=30);width: 100%;height: 100%;zoom: 1;}
+</style>
+
+<div>
+    <h2 class="text-info">用户管理</h2>
+</div>
+
+<div>
+    <label for="userNameManager" style="float: left">用户名称&nbsp;&nbsp;</label>
+    <input class="form-control" style="width: 150px; float: left;" id="userNameManager">
+    <label style="float: left">用户角色&nbsp;&nbsp;</label>
+    <select id="userSelectManager" class="form-control" style="width: 150px">
+        <option value="-1" selected="selected">全部</option>
+        <option value="0">超级管理员</option>
+        <option value="1">管理员</option>
+        <option value="2">普通用户</option>
+    </select>
+    <input style="display: none" name="" placeholder="" type="text" value="" id="userTypeManager">
+    <br>
+    <button type="button" class="btn btn-primary" >
+        <span class="glyphicon glyphicon-search" onclick="showAddUserWin()"></span> 添加
+    </button>
+
+    <button type="button" class="btn btn-primary" style="float: right">
+        <span class="glyphicon glyphicon-search" onclick="searchUserManager()"></span> 搜索
+    </button>
+    <br>
+</div>
+
+<!-- 按钮和下面列表之间的间隔-->
+<div class="splitter"> <br> </div>
+<!--列表-->
+<div>
+    <table class="table table-hover table-bordered" id="userManagerList">
+        <thead>
+        <tr>
+            <th>
+                ID
+            </th>
+            <th>
+                用户名
+            </th>
+            <th>
+                用户角色
+            </th>
+            <th>
+                注册时间
+            </th>
+            <th style="width: 15%">
+                操作
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <!--<tr>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--<td>-->
+        <!--1-->
+        <!--</td>-->
+        <!--</tr>-->
+        </tbody>
+    </table>
+</div>
+<!--分页-->
+<div id="comicManagerPage" class="xwPager" style="display: none"></div>
+<!--添加商品信息弹窗-->
+<div class="center-in-center" id="addUserWin" style="display: none; ">
+    <div>
+        <h2 class="text-primary" align="center">添加商品信息</h2><br>
+    </div>
+    <form role="form" >
+        <div class="form-group">
+            <label for="addUserName" class="text-primary">用户名</label>
+            <input type="text" class="form-control" id="addUserName" />
+            <label for="addUserPwd" class="text-primary">密码</label>
+            <input type="text" class="form-control" id="addUserPwd" />
+            <label for="addUserPwd2" class="text-primary">确认密码</label>
+            <input type="text" class="form-control" id="addUserPwd2"/>
+
+            <label for="addUserType" class="text-primary">用户角色</label>
+            <select id="addUserSelect" class="form-control" style="width: 150px">
+                <option value="-1" selected="selected">请选择类型</option>
+                <option value="0">超级管理员</option>
+                <option value="1">管理员</option>
+                <option value="2">普通用户</option>
+            </select>
+            <input style="display: none" name="" placeholder="" type="text" value="" id="addUserType">
+        </div>
+        <input class="btn btn-primary " onclick="toAddUser()" type="button" value="确认添加">
+        <input class="btn btn-primary " style="float: right;" onclick="closeAddUserWin()" type="button" value="关闭">
+    </form>
+</div>
+
+<!--修改商品信息弹窗-->
+<div class="center-in-center" id="updateUserWin" style="display: none; ">
+    <div>
+        <h2 class="text-primary" align="center">修改用户信息</h2><br>
+    </div>
+    <form role="form" >
+        <div class="form-group">
+            <label for="updateUseName" class="text-primary">用户名</label>
+            <input type="text" class="form-control" id="updateUseName" />
+            <label for="updateUserPwd" class="text-primary">原密码</label>
+            <input type="text" class="form-control" id="updateUserPwd" />
+            <label for="updateUserPwd2" class="text-primary">新密码</label>
+            <input type="text" class="form-control" id="updateUserPwd2"/>
+            <label for="updateUserPwd3" class="text-primary">确认密码</label>
+            <input type="text" class="form-control" id="updateUserPwd3"/>
+            <label for="updateUserType" class="text-primary">用户角色</label>
+            <input type="text" class="form-control" id="updateUserType" readonly="readonly" />
+            <label for="updateUserType2" class="text-primary">修改角色</label>
+            <select id="updateUserSelect" class="form-control" style="width: 150px">
+                <option value="-1" selected="selected">请选择类型</option>
+                <option value="0">超级管理员</option>
+                <option value="1">管理员</option>
+                <option value="2">普通用户</option>
+            </select>
+            <input style="display: none" name="" placeholder="" type="text" value="" id="updateUserType2">
+            <input type="hidden" class="form-control" id="updateUserCode"/>
+        </div>
+        <input class="btn btn-primary " onclick="toUpdateUser()" type="button" value="确认修改">
+        <input class="btn btn-primary " style="float: right;" onclick="closeUpdateUserWin()" type="button" value="关闭">
+    </form>
+</div>
+
+
+<!-- 弹窗遮罩层 -->
+<div class="xwZmask" style="display:none" id="mask"></div>
+
+
+
+<script src="/js/base/jquery-3.3.1.min.js"></script>
+<script src="/js/base/jquery.pager.js"></script>
+<script src="/js/demo/user.js"></script>
+<script src="/js/base/bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
