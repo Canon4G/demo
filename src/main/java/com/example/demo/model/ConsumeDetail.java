@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class ConsumeDetail implements Serializable {
 
-    private static final long serialVersionUID = 2825373008841534233L;
+    private static final long serialVersionUID = 8222135682113887112L;
 
     private Long id;                        // id
 
@@ -25,12 +25,15 @@ public class ConsumeDetail implements Serializable {
 
     private Date gmtCreate;                 // 创建时间
 
+    private String userCode;                // 用户编码
+
     public ConsumeDetail() {
     }
 
-    public ConsumeDetail(Long id, String consumeCode, String accountCode, BigDecimal consumeMoney, String productCode, String productCount, Date gmtCreate) {
+    public ConsumeDetail(Long id, String consumeCode, String userCode, String accountCode, BigDecimal consumeMoney, String productCode, String productCount, Date gmtCreate) {
         this.id = id;
         this.consumeCode = consumeCode;
+        this.userCode = userCode;
         this.accountCode = accountCode;
         this.consumeMoney = consumeMoney;
         this.productCode = productCode;
@@ -41,6 +44,7 @@ public class ConsumeDetail implements Serializable {
     private ConsumeDetail(Builder builder) {
         setId(builder.id);
         setConsumeCode(builder.consumeCode);
+        setUserCode(builder.userCode);
         setAccountCode(builder.accountCode);
         setConsumeMoney(builder.consumeMoney);
         setProductCode(builder.productCode);
@@ -62,6 +66,14 @@ public class ConsumeDetail implements Serializable {
 
     public void setConsumeCode(String consumeCode) {
         this.consumeCode = consumeCode;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     public String getAccountCode() {
@@ -108,6 +120,7 @@ public class ConsumeDetail implements Serializable {
     public static final class Builder {
         private Long id;
         private String consumeCode;
+        private String userCode;
         private String accountCode;
         private BigDecimal consumeMoney;
         private String productCode;
@@ -124,6 +137,11 @@ public class ConsumeDetail implements Serializable {
 
         public Builder consumeCode(String val) {
             consumeCode = val;
+            return this;
+        }
+
+        public Builder userCode(String val) {
+            userCode = val;
             return this;
         }
 

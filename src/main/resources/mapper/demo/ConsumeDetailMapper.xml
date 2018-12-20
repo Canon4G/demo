@@ -1,29 +1,154 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.example.demo.mapper.ConsumeDetailMapper" >
-  <resultMap id="BaseResultMap" type="com.example.demo.model.ConsumeDetail" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="consume_code" property="consumeCode" jdbcType="VARCHAR" />
-    <result column="account_code" property="accountCode" jdbcType="VARCHAR" />
-    <result column="consume_money" property="consumeMoney" jdbcType="DECIMAL" />
-    <result column="product_code" property="productCode" jdbcType="VARCHAR" />
-    <result column="product_count" property="productCount" jdbcType="VARCHAR" />
-    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.mapper.ConsumeDetailMapper">
+  <resultMap id="BaseResultMap" type="com.example.demo.model.ConsumeDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="consume_code" jdbcType="VARCHAR" property="consumeCode" />
+    <result column="user_code" jdbcType="VARCHAR" property="userCode" />
+    <result column="account_code" jdbcType="VARCHAR" property="accountCode" />
+    <result column="consume_money" jdbcType="DECIMAL" property="consumeMoney" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_count" jdbcType="VARCHAR" property="productCount" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
   </resultMap>
-  <sql id="Base_Column_List" >
-    id, consume_code, account_code, consume_money, product_code, product_count, gmt_create
+  <sql id="Base_Column_List">
+    id, consume_code, user_code, account_code, consume_money, product_code, product_count, 
+    gmt_create
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from finance_consume_detail
     where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from finance_consume_detail
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.example.demo.model.ConsumeDetail" >
+  <insert id="insert" parameterType="com.example.demo.model.ConsumeDetail">
+    insert into finance_consume_detail (id, consume_code, user_code, 
+      account_code, consume_money, product_code, 
+      product_count, gmt_create)
+    values (#{id,jdbcType=BIGINT}, #{consumeCode,jdbcType=VARCHAR}, #{userCode,jdbcType=VARCHAR}, 
+      #{accountCode,jdbcType=VARCHAR}, #{consumeMoney,jdbcType=DECIMAL}, #{productCode,jdbcType=VARCHAR}, 
+      #{productCount,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.example.demo.model.ConsumeDetail">
+    insert into finance_consume_detail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="consumeCode != null">
+        consume_code,
+      </if>
+      <if test="userCode != null">
+        user_code,
+      </if>
+      <if test="accountCode != null">
+        account_code,
+      </if>
+      <if test="consumeMoney != null">
+        consume_money,
+      </if>
+      <if test="productCode != null">
+        product_code,
+      </if>
+      <if test="productCount != null">
+        product_count,
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="consumeCode != null">
+        #{consumeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null">
+        #{accountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="consumeMoney != null">
+        #{consumeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="productCode != null">
+        #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productCount != null">
+        #{productCount,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.ConsumeDetail">
+    update finance_consume_detail
+    <set>
+      <if test="consumeCode != null">
+        consume_code = #{consumeCode,jdbcType=VARCHAR},
+      </if>
+      <if test="userCode != null">
+        user_code = #{userCode,jdbcType=VARCHAR},
+      </if>
+      <if test="accountCode != null">
+        account_code = #{accountCode,jdbcType=VARCHAR},
+      </if>
+      <if test="consumeMoney != null">
+        consume_money = #{consumeMoney,jdbcType=DECIMAL},
+      </if>
+      <if test="productCode != null">
+        product_code = #{productCode,jdbcType=VARCHAR},
+      </if>
+      <if test="productCount != null">
+        product_count = #{productCount,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null">
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.ConsumeDetail">
+    update finance_consume_detail
+    set consume_code = #{consumeCode,jdbcType=VARCHAR},
+      user_code = #{userCode,jdbcType=VARCHAR},
+      account_code = #{accountCode,jdbcType=VARCHAR},
+      consume_money = #{consumeMoney,jdbcType=DECIMAL},
+      product_code = #{productCode,jdbcType=VARCHAR},
+      product_count = #{productCount,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.example.demo.model.ConsumeDetail">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="consume_code" jdbcType="VARCHAR" property="consumeCode" />
+    <result column="account_code" jdbcType="VARCHAR" property="accountCode" />
+    <result column="consume_money" jdbcType="DECIMAL" property="consumeMoney" />
+    <result column="product_code" jdbcType="VARCHAR" property="productCode" />
+    <result column="product_count" jdbcType="VARCHAR" property="productCount" />
+    <result column="gmt_create" jdbcType="TIMESTAMP" property="gmtCreate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, consume_code, account_code, consume_money, product_code, product_count, gmt_create
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from finance_consume_detail
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from finance_consume_detail
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.example.demo.model.ConsumeDetail">
     insert into finance_consume_detail (id, consume_code, account_code, 
       consume_money, product_code, product_count, 
       gmt_create)
@@ -31,80 +156,80 @@
       #{consumeMoney,jdbcType=DECIMAL}, #{productCode,jdbcType=VARCHAR}, #{productCount,jdbcType=VARCHAR}, 
       #{gmtCreate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.demo.model.ConsumeDetail" >
+  <insert id="insertSelective" parameterType="com.example.demo.model.ConsumeDetail">
     insert into finance_consume_detail
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         id,
       </if>
-      <if test="consumeCode != null" >
+      <if test="consumeCode != null">
         consume_code,
       </if>
-      <if test="accountCode != null" >
+      <if test="accountCode != null">
         account_code,
       </if>
-      <if test="consumeMoney != null" >
+      <if test="consumeMoney != null">
         consume_money,
       </if>
-      <if test="productCode != null" >
+      <if test="productCode != null">
         product_code,
       </if>
-      <if test="productCount != null" >
+      <if test="productCount != null">
         product_count,
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         gmt_create,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
         #{id,jdbcType=BIGINT},
       </if>
-      <if test="consumeCode != null" >
+      <if test="consumeCode != null">
         #{consumeCode,jdbcType=VARCHAR},
       </if>
-      <if test="accountCode != null" >
+      <if test="accountCode != null">
         #{accountCode,jdbcType=VARCHAR},
       </if>
-      <if test="consumeMoney != null" >
+      <if test="consumeMoney != null">
         #{consumeMoney,jdbcType=DECIMAL},
       </if>
-      <if test="productCode != null" >
+      <if test="productCode != null">
         #{productCode,jdbcType=VARCHAR},
       </if>
-      <if test="productCount != null" >
+      <if test="productCount != null">
         #{productCount,jdbcType=VARCHAR},
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.ConsumeDetail" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.example.demo.model.ConsumeDetail">
     update finance_consume_detail
-    <set >
-      <if test="consumeCode != null" >
+    <set>
+      <if test="consumeCode != null">
         consume_code = #{consumeCode,jdbcType=VARCHAR},
       </if>
-      <if test="accountCode != null" >
+      <if test="accountCode != null">
         account_code = #{accountCode,jdbcType=VARCHAR},
       </if>
-      <if test="consumeMoney != null" >
+      <if test="consumeMoney != null">
         consume_money = #{consumeMoney,jdbcType=DECIMAL},
       </if>
-      <if test="productCode != null" >
+      <if test="productCode != null">
         product_code = #{productCode,jdbcType=VARCHAR},
       </if>
-      <if test="productCount != null" >
+      <if test="productCount != null">
         product_count = #{productCount,jdbcType=VARCHAR},
       </if>
-      <if test="gmtCreate != null" >
+      <if test="gmtCreate != null">
         gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.ConsumeDetail" >
+  <update id="updateByPrimaryKey" parameterType="com.example.demo.model.ConsumeDetail">
     update finance_consume_detail
     set consume_code = #{consumeCode,jdbcType=VARCHAR},
       account_code = #{accountCode,jdbcType=VARCHAR},
