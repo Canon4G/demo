@@ -3,7 +3,11 @@ package com.example.demo.controller;
 import com.example.demo.entity.JsonResult;
 import com.example.demo.enums.ComicType;
 import com.example.demo.manager.CommodityComicManager;
+import com.example.demo.manager.ConsumeManager;
+import com.example.demo.manager.UserAccountManager;
 import com.example.demo.model.CommodityComic;
+import com.example.demo.model.User;
+import com.example.demo.model.UserAccount;
 import com.example.demo.util.MyPage;
 import com.example.demo.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -26,7 +31,7 @@ import java.util.Map;
  **/
 @Controller
 @RequestMapping(value = "comic/")
-public class ComicController {
+public class ComicController extends BaseController {
 
     private static Logger logger = LoggerFactory.getLogger(ComicController.class);
 
@@ -34,6 +39,12 @@ public class ComicController {
 
     @Autowired
     CommodityComicManager commodityComicManager;
+
+    @Autowired
+    ConsumeManager consumeManager;
+
+    @Autowired
+    UserAccountManager userAccountManager;
 
     /**
      * 前台漫画信息展示(分页)
@@ -80,7 +91,7 @@ public class ComicController {
 
     /**
      * 漫画购买
-     * @author
+     * @author Canon4G
      * @param request       request
      * @param comicCode     漫画编码
      * @param buyComicNum   购买漫画数量
@@ -90,10 +101,45 @@ public class ComicController {
     @RequestMapping(value = "buyComic", method = RequestMethod.POST)
     public JsonResult buyComic(HttpServletRequest request, @RequestParam String comicCode, @RequestParam String buyComicNum) {
         Map<String, Object> result = new HashMap<>();
-
-        // TODO: 购买漫画的业务逻辑
-
-        return null;
+        // 参数校验
+        User user = checkUserSession(request);
+        if (null == user) {
+            return JsonResult.asFalse();
+        }
+        if (StringUtils.isBlank(comicCode)) {
+            result.put("returnMsg", "购买失败");
+            return JsonResult.asFalseModel(result);
+        }
+        CommodityComic comic = commodityComicManager.getComicInfo(new CommodityComic.Builder().comicCode(comicCode).build());
+        if (null == comic) {
+            result.put("returnMsg", "购买失败");
+            return JsonResult.asFalseModel(result);
+        }
+        if (!StringUtil.isNumeric(buyComicNum)) {
+            result.put("returnMsg", "请输入正确的购买数量");
+            return JsonResult.asFalseModel(result);
+        }
+        if (0 >= Integer.parseInt(buyComicNum)) {
+            result.put("returnMsg", "请输入正确的购买数量");
+            return JsonResult.asFalseModel(result);
+        }
+        if (Integer.parseInt(comic.getComicInventory()) < Integer.parseInt(buyComicNum)) {
+            result.put("returnMsg", "购买数量不能超过库存");
+            return JsonResult.asFalseModel(result);
+        }
+        // 获取总金额
+        BigDecimal totalMoney = comic.getComicPrice().multiply(new BigDecimal(buyComicNum));
+        // 获得用户的账户
+        UserAccount userAccount = userAccountManager.getUserAccountInfo(new UserAccount.Builder().userCode(user.getUserCode()).build());
+        // 获得账户余额
+        BigDecimal accountMoney = userAccount.getAccountMoney();
+        if (0 < totalMoney.compareTo(accountMoney)) {
+            result.put("returnMsg", "账户余额不足");
+            return JsonResult.asFalseModel(result);
+        }
+        consumeManager.buyComic(userAccount, totalMoney, comic, buyComicNum);
+        result.put("returnMsg", "购买成功");
+        return JsonResult.asTrueModel(result);
     }
 
     /**
