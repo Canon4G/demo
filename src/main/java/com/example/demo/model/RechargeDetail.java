@@ -9,7 +9,7 @@ import java.util.Date;
  */
 public class RechargeDetail implements Serializable {
 
-    private static final long serialVersionUID = 2155289626629761137L;
+    private static final long serialVersionUID = 8497048632510587273L;
 
     private Long id;                        // id
 
@@ -23,12 +23,15 @@ public class RechargeDetail implements Serializable {
 
     private Date gmtCreate;                 // 创建时间
 
+    private String userCode;                // 用户编码
+
     public RechargeDetail() {
     }
 
-    public RechargeDetail(Long id, String rechargeCode, String accountCode, BigDecimal rechargeMoney, String rechargeMode, Date gmtCreate) {
+    public RechargeDetail(Long id, String rechargeCode, String userCode, String accountCode, BigDecimal rechargeMoney, String rechargeMode, Date gmtCreate) {
         this.id = id;
         this.rechargeCode = rechargeCode;
+        this.userCode = userCode;
         this.accountCode = accountCode;
         this.rechargeMoney = rechargeMoney;
         this.rechargeMode = rechargeMode;
@@ -38,6 +41,7 @@ public class RechargeDetail implements Serializable {
     private RechargeDetail(Builder builder) {
         setId(builder.id);
         setRechargeCode(builder.rechargeCode);
+        setUserCode(builder.userCode);
         setAccountCode(builder.accountCode);
         setRechargeMoney(builder.rechargeMoney);
         setRechargeMode(builder.rechargeMode);
@@ -58,6 +62,14 @@ public class RechargeDetail implements Serializable {
 
     public void setRechargeCode(String rechargeCode) {
         this.rechargeCode = rechargeCode;
+    }
+
+    public String getUserCode() {
+        return userCode;
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     public String getAccountCode() {
@@ -92,10 +104,10 @@ public class RechargeDetail implements Serializable {
         this.gmtCreate = gmtCreate;
     }
 
-
     public static final class Builder {
         private Long id;
         private String rechargeCode;
+        private String userCode;
         private String accountCode;
         private BigDecimal rechargeMoney;
         private String rechargeMode;
@@ -111,6 +123,11 @@ public class RechargeDetail implements Serializable {
 
         public Builder rechargeCode(String val) {
             rechargeCode = val;
+            return this;
+        }
+
+        public Builder userCode(String val) {
+            userCode = val;
             return this;
         }
 
