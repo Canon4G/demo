@@ -103,5 +103,7 @@ public class UserManagerImpl implements UserManager {
     public void deleteUser(String userCode) {
         // 删除用户信息
         userMapper.deleteByPrimaryKey(userCode);
+        // 根据用户编号查找并删除对应的账户信息
+        userAccountMapper.deleteByPrimaryKey(userCode);
     }
 }
