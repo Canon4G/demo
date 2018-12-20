@@ -153,6 +153,22 @@ public class UserController extends BaseController {
     }
 
     /**
+     * 根据角色名称获得角色值
+     * @param isAdmin 角色名称
+     * @return String
+     */
+    private String getAdminValue(String isAdmin) {
+        if (UserIsAdmin.ADMIN.getDesc().equals(isAdmin)) {
+            isAdmin = UserIsAdmin.ADMIN.getValue();
+        } else if (UserIsAdmin.SUPER_ADMIN.getDesc().equals(isAdmin)) {
+            isAdmin = UserIsAdmin.SUPER_ADMIN.getValue();
+        } else if (UserIsAdmin.USER.getDesc().equals(isAdmin)) {
+            isAdmin = UserIsAdmin.USER.getValue();
+        }
+        return isAdmin;
+    }
+
+    /**
      * 用户信息展示(分页)
      * @author Canon4G
      * @param userName         用户名称
@@ -244,13 +260,7 @@ public class UserController extends BaseController {
             result.put("returnMsg", "两次密码不一致！");
             return JsonResult.asFalseModel(result);
         }
-        if (UserIsAdmin.SUPER_ADMIN.getDesc().equals(isAdmin)) {
-            isAdmin = UserIsAdmin.SUPER_ADMIN.getValue();
-        } else if (UserIsAdmin.ADMIN.getDesc().equals(isAdmin)) {
-            isAdmin = UserIsAdmin.ADMIN.getValue();
-        } else if (UserIsAdmin.USER.getDesc().equals(isAdmin)) {
-            isAdmin = UserIsAdmin.USER.getValue();
-        }
+        isAdmin = getAdminValue(isAdmin);
         isAdmin = (StringUtils.isBlank(isAdmin2) || "-1".equals(isAdmin2) || isAdmin2.equals(isAdmin)) ? isAdmin : isAdmin2;
         userManager.updateUser(new User.Builder()
                 .userName(userName)
