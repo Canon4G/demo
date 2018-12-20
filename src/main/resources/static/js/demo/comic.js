@@ -115,6 +115,7 @@ function toConsume() {
             }
             alert(data.data.returnMsg);
             closeConsumeWin();
+            init();
             initIndex();
         }
     });
