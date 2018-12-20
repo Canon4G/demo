@@ -36,6 +36,13 @@ function getUserList(pageNum) {
                     + '</td>');
                 $("#userManagerList tbody").append(tr);
             }
+            // 分页
+            $("#userPage").show();
+            $("#userPage").pager({
+                pagenumber: data.data.pageNum,
+                pagecount: data.data.pageTotal,
+                buttonClickCallback: userPageClick
+            });
         }
     });
 }
