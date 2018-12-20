@@ -36,7 +36,8 @@ CREATE TABLE finance_recharge_detail
 (
     id                  bigint(20)          NOT NULL AUTO_INCREMENT,
     recharge_code       varchar(60)         NOT NULL COMMENT '充值流水编码',
-    account_code        varchar(40)         NOT NULL COMMENT '账户编码',
+    user_code           varchar(60)         NOT NULL COMMENT '用户编码',
+    account_code        varchar(60)         NOT NULL COMMENT '账户编码',
     recharge_money      decimal(16, 2)      DEFAULT NULL COMMENT '充值金额，保留两位小数',
     recharge_mode       varchar(1)          NOT NULL COMMENT '充值方式：0、微信，1、支付宝，3、银行卡',
     gmt_create          DATETIME            COMMENT '创建时间',
@@ -50,9 +51,10 @@ CREATE TABLE finance_consume_detail
 (
     id                  bigint(20)          NOT NULL AUTO_INCREMENT,
     consume_code        varchar(60)         NOT NULL COMMENT '消耗流水编码',
-    account_code        varchar(40)         NOT NULL COMMENT '账户编码',
+    user_code           varchar(60)         NOT NULL COMMENT '用户编码',
+    account_code        varchar(60)         NOT NULL COMMENT '账户编码',
     consume_money       decimal(16, 2)      DEFAULT NULL COMMENT '消耗金额，保留两位小数',
-    product_code        varchar(40)         NOT NULL COMMENT '商品编码',
+    product_code        varchar(60)         NOT NULL COMMENT '商品编码',
     product_count       varchar(40)         NOT NULL COMMENT '商品数量',
     gmt_create          DATETIME            COMMENT '创建时间',
     PRIMARY KEY (id)
