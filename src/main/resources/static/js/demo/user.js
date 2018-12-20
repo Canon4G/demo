@@ -6,7 +6,6 @@ function init() {
     getUserList(1);
 }
 
-// TODO: 分页
 function getUserList(pageNum) {
     $("#userManagerList tbody").empty();
     $.ajax({
@@ -20,6 +19,22 @@ function getUserList(pageNum) {
         success: function (data) {
             if ('success' !== data.code) {
                 return;
+            }
+            var list = data.data.list;
+            if (0 === list.length) {
+                return;
+            }
+            for (var i = 0; i < list.length; i++) {
+                var tr = $("<tr></tr>");
+                tr.html('<td>' + list[i].id + '</td>'
+                    + '<td>' + list[i].userName + '</td>'
+                    + '<td>' + checkUserTypeText(list[i].isAdmin) + '</td>'
+                    + '<td>' + list[i].gmtCreate + '</td>'
+                    + '<td>'
+                    + " &nbsp;&nbsp;<a onclick='showUpdateUserWin(\"" + list[i].userCode + "\")' class='btn btn-warning'>修改</a>"
+                    + " &nbsp;&nbsp;<a onclick='toDeleteUser(\"" + list[i].userCode + "\")' class='btn btn-danger'>删除</a>"
+                    + '</td>');
+                $("#userManagerList tbody").append(tr);
             }
         }
     });
@@ -95,6 +110,7 @@ function showUpdateUserWin(userCode) {
             $("#updateUserType").val(checkUserTypeText(data.data.user.isAdmin));
             $("#updateUserPwd").val("");
             $("#updateUserPwd2").val("");
+            $("#updateUserPwd3").val("");
             $("#updateUserCode").val(data.data.user.userCode);
             $("#mask").show();
             $("#updateUserWin").show();
@@ -108,8 +124,7 @@ function toUpdateUser() {
         url: '/updateUser',
         data: {
             "userCode": $("#updateUserCode").val(),
-            "userName": $("#updateUseName").val(),
-            "password": $("#updateUserPwd").val(),
+            "userName": $("#updateUserName").val(),
             "password2": $("#updateUserPwd2").val(),
             "password3": $("#updateUserPwd3").val(),
             "isAdmin": $("#updateUserType").val(),
@@ -128,7 +143,7 @@ function toUpdateUser() {
 }
 
 function closeUpdateUserWin() {
-    $("#addUserWin").hide();
+    $("#updateUserWin").hide();
     $("#mask").hide();
 }
 
