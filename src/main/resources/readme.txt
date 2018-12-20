@@ -3,7 +3,7 @@
 -- ----------------------------
 -- user_user  用户表
 -- ----------------------------
-CREATE TABLE user_user1
+CREATE TABLE user_user
 (
    id                   bigint(20)        NOT NULL AUTO_INCREMENT,
    user_code            varchar(40)       NOT NULL COMMENT '用户编码',
