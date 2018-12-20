@@ -95,11 +95,11 @@
       <if test="userName != null" >
         #{userName,jdbcType=VARCHAR},
       </if>
-      <if test="isAdmin != null" >
-        #{isAdmin,jdbcType=VARCHAR},
-      </if>
       <if test="passWord != null" >
         #{passWord,jdbcType=VARCHAR},
+      </if>
+      <if test="isAdmin != null" >
+        #{isAdmin,jdbcType=VARCHAR},
       </if>
       <if test="gmtCreate != null" >
         #{gmtCreate,jdbcType=DATE},
