@@ -5,7 +5,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface UserAccountMapper {
-    int deleteByPrimaryKey(Long id);
+    int deleteByPrimaryKey(String userCode);
 
     int insert(UserAccount record);
 
