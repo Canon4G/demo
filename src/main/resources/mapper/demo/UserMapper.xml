@@ -76,7 +76,7 @@
         pass_word,
       </if>
       <if test="isAdmin != null" >
-        pass_word,
+        is_admin,
       </if>
       <if test="gmtCreate != null" >
         gmt_create,
