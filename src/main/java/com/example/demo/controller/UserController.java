@@ -1,6 +1,7 @@
 package com.example.demo.controller;
 
 import com.example.demo.entity.JsonResult;
+import com.example.demo.enums.UserIsAdmin;
 import com.example.demo.manager.UserManager;
 import com.example.demo.model.User;
 import com.example.demo.util.MD5Utils;
@@ -124,6 +125,10 @@ public class UserController extends BaseController {
             result.put("returnMsg", "密码不能超过20位！");
             return JsonResult.asFalseModel(result);
         }
+        if (StringUtils.isBlank(isAdmin) || "-1".equals(isAdmin)) {
+            result.put("returnMsg", "请选择正确的用户角色");
+            return JsonResult.asFalseModel(result);
+        }
         // 判断用户是否存在
         User user = userManager.getUserInfo(new User.Builder().userName(username).build());
         if (null != user) {
@@ -198,7 +203,6 @@ public class UserController extends BaseController {
     @RequestMapping(value = "/updateUser", method = RequestMethod.POST)
     public JsonResult updateUser(@RequestParam String userCode,
                                  @RequestParam String userName,
-                                 @RequestParam String password,
                                  @RequestParam String password2,
                                  @RequestParam String password3,
                                  @RequestParam String isAdmin,
@@ -217,38 +221,40 @@ public class UserController extends BaseController {
                 return JsonResult.asFalseModel(result);
             }
         }
-        if (StringUtils.isBlank(password)) {
-            result.put("returnMsg", "密码不能为空!");
-            return JsonResult.asFalseModel(result);
-        }
-        if (!MD5Utils.MD5Encode(password, "utf8").equals(user.getPassWord())) {
-            result.put("returnMsg", "原密码不正确!");
-            return JsonResult.asFalseModel(result);
-        }
         if (6 > userName.length()) {
             result.put("returnMsg", "用户名不能小于6位！");
-            return JsonResult.asFalseModel(result);
-        }
-        if (6 > password2.length()) {
-            result.put("returnMsg", "密码不能小于6位！");
             return JsonResult.asFalseModel(result);
         }
         if (20 < userName.length()) {
             result.put("returnMsg", "用户名不能超过20位！");
             return JsonResult.asFalseModel(result);
         }
-        if (20 < password2.length()) {
-            result.put("returnMsg", "密码不能超过20位！");
-            return JsonResult.asFalseModel(result);
+        if (!StringUtils.isBlank(password2)) {
+            if (6 > password2.length()) {
+                result.put("returnMsg", "密码不能小于6位！");
+                return JsonResult.asFalseModel(result);
+            }
+            if (20 < password2.length()) {
+                result.put("returnMsg", "密码不能超过20位！");
+                return JsonResult.asFalseModel(result);
+            }
         }
         // 判断两次密码是否一致
         if (!password3.equals(password2)) {
             result.put("returnMsg", "两次密码不一致！");
             return JsonResult.asFalseModel(result);
         }
+        if (UserIsAdmin.SUPER_ADMIN.getDesc().equals(isAdmin)) {
+            isAdmin = UserIsAdmin.SUPER_ADMIN.getValue();
+        } else if (UserIsAdmin.ADMIN.getDesc().equals(isAdmin)) {
+            isAdmin = UserIsAdmin.ADMIN.getValue();
+        } else if (UserIsAdmin.USER.getDesc().equals(isAdmin)) {
+            isAdmin = UserIsAdmin.USER.getValue();
+        }
         isAdmin = (StringUtils.isBlank(isAdmin2) || "-1".equals(isAdmin2) || isAdmin2.equals(isAdmin)) ? isAdmin : isAdmin2;
         userManager.updateUser(new User.Builder()
                 .userName(userName)
+                .userCode(userCode)
                 .passWord(MD5Utils.MD5Encode(password2, "utf8"))
                 .isAdmin(isAdmin)
                 .gmtModified(new Date())
