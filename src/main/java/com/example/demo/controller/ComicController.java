@@ -144,7 +144,11 @@ public class ComicController extends BaseController {
 
     /**
      * 添加漫画商品信息
+<<<<<<< HEAD
      * @author Canon4G1
+=======
+     * @author Canon4G
+>>>>>>> parent of c69959b... ceshi
      * @param comicName         漫画名称
      * @param comicPrice        漫画单价
      * @param comicInventory    漫画库存
