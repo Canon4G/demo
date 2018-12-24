@@ -16,8 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * create by Canon4G 2018-12-14
@@ -105,5 +104,21 @@ public class UserManagerImpl implements UserManager {
         userMapper.deleteByPrimaryKey(userCode);
         // 根据用户编号查找并删除对应的账户信息
         userAccountMapper.deleteByPrimaryKey(userCode);
+    }
+
+    /**
+     * 获得用户名
+     * @author Canon4G
+     * @param userCodes 用户编号集合
+     * @return map
+     */
+    @Override
+    public Map<String, String> getUserNames(Set<String> userCodes) {
+        Map<String, String> map = new HashMap<>();
+        for (String userCode : userCodes) {
+            String userName = userMapper.getInfo(new User.Builder().userCode(userCode).build()).getUserName();
+            map.put(userCode, userName);
+        }
+        return map;
     }
 }

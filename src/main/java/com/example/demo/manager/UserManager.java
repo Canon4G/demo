@@ -4,6 +4,9 @@ import com.example.demo.model.User;
 import com.example.demo.util.MyPage;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * create by Canon4G 2018-12-14
  **/
@@ -48,4 +51,12 @@ public interface UserManager {
      * @param userCode  用户编号
      */
     void deleteUser(String userCode);
+
+    /**
+     * 获得用户名
+     * @author Canon4G
+     * @param userCodes 用户编号集合
+     * @return map
+     */
+    Map<String, String> getUserNames(Set<String> userCodes);
 }

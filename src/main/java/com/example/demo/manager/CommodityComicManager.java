@@ -4,6 +4,9 @@ import com.example.demo.model.CommodityComic;
 import com.example.demo.util.MyPage;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
+import java.util.Set;
+
 /**
  * create by Canon4G 2018-12-17
  **/
@@ -55,4 +58,12 @@ public interface CommodityComicManager {
      * @param comicCode         商品编码
      */
     void deleteComic(String comicCode);
+
+    /**
+     * 获得商品名
+     * @author Canon4G
+     * @param comicCodes 商品编号集合
+     * @return map
+     */
+    Map<String, String> getComicNames(Set<String> comicCodes);
 }

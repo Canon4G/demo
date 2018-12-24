@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 import com.example.demo.entity.JsonResult;
 import com.example.demo.manager.RechargeManager;
+import com.example.demo.model.RechargeDetail;
 import com.example.demo.model.User;
+import com.example.demo.util.MyPage;
 import com.example.demo.util.StringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,8 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 充值
@@ -28,6 +29,8 @@ import java.util.Map;
 public class RechargeController extends BaseController {
 
     private static Logger logger = LoggerFactory.getLogger(RechargeController.class);
+
+    private static final Integer PAGESIZE = 10;
 
     @Autowired
     RechargeManager rechargeManager;
@@ -67,6 +70,37 @@ public class RechargeController extends BaseController {
         // 调用充值方法
         rechargeManager.rechargeAccount(user, rechargeMoney, mode);
         result.put("returnMsg", "充值成功");
+        return JsonResult.asTrueModel(result);
+    }
+
+    /**
+     * 充值流水的信息展示(分页)
+     * @author Canon4G
+     * @param pageNum 页码
+     * @return  JsonResult
+     */
+    @ResponseBody
+    @RequestMapping(value = "getRechargeList", method = RequestMethod.POST)
+    public JsonResult getRechargeList(@RequestParam int pageNum) {
+        Map<String, Object> result = new HashMap<>();
+        RechargeDetail rechargeDetail = new RechargeDetail();
+        MyPage<RechargeDetail> myPage = rechargeManager.getRechargeDetailList(rechargeDetail, pageNum, PAGESIZE);
+        Set userCodes = new HashSet();
+        for (RechargeDetail recharge : myPage.getList()) {
+            userCodes.add(recharge.getUserCode());
+        }
+        Map<String, String> userNames = userManager.getUserNames(userCodes);
+        List<RechargeDetail> rechargeDetails = new ArrayList<>();
+        for (RechargeDetail recharge : myPage.getList()) {
+            recharge.setUserName(userNames.get(recharge.getUserCode()));
+            rechargeDetails.add(recharge);
+        }
+        result.put("list", myPage.getList());
+        result.put("count", myPage.getCount());
+        result.put("pageNum", pageNum);
+        result.put("pageSize", PAGESIZE);
+        long pageTotal = (myPage.getCount() + PAGESIZE - 1) / PAGESIZE;
+        result.put("pageTotal", String.valueOf(pageTotal));
         return JsonResult.asTrueModel(result);
     }
 }

@@ -27,6 +27,10 @@ public class ConsumeDetail implements Serializable {
 
     private String userCode;                // 用户编码
 
+    private String userName;                // 用户名称（业务需要）
+
+    private String comicName;               // 商品名称（业务需要）
+
     public ConsumeDetail() {
     }
 
@@ -116,6 +120,23 @@ public class ConsumeDetail implements Serializable {
         this.gmtCreate = gmtCreate;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public ConsumeDetail setUserName(String userName) {
+        this.userName = userName;
+        return this;
+    }
+
+    public String getComicName() {
+        return comicName;
+    }
+
+    public ConsumeDetail setComicName(String comicName) {
+        this.comicName = comicName;
+        return this;
+    }
 
     public static final class Builder {
         private Long id;

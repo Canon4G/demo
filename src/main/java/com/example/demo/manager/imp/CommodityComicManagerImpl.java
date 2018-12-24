@@ -15,8 +15,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 商品漫画
@@ -116,5 +115,21 @@ public class CommodityComicManagerImpl implements CommodityComicManager {
     public void deleteComic(String comicCode) {
         // 删除商品信息
         commodityComicMapper.deleteByComicCode(comicCode);
+    }
+
+    /**
+     * 获得商品名
+     * @author Canon4G
+     * @param comicCodes 商品编号集合
+     * @return map
+     */
+    @Override
+    public Map<String, String> getComicNames(Set<String> comicCodes) {
+        Map<String, String> map = new HashMap<>();
+        for (String comicCode : comicCodes) {
+            String comicName = commodityComicMapper.getInfo(new CommodityComic.Builder().comicCode(comicCode).build()).getComicName();
+            map.put(comicCode, comicName);
+        }
+        return map;
     }
 }

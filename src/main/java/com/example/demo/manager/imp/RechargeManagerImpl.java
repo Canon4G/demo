@@ -8,6 +8,9 @@ import com.example.demo.model.RechargeDetail;
 import com.example.demo.model.User;
 import com.example.demo.model.UserAccount;
 import com.example.demo.util.CodeUtil;
+import com.example.demo.util.MyPage;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 充值
@@ -85,5 +89,23 @@ public class RechargeManagerImpl implements RechargeManager {
         userAccount.setAccountMoney(accountMoney.add(money));
         userAccount.setGmtModified(new Date());
         userAccountMapper.updateByPrimaryKeySelective(userAccount);
+    }
+
+    /**
+     * 获得充值流水列表(分页)
+     * @author Canon4G
+     * @param rechargeDetail    充值流水信息
+     * @param pageNum           页码
+     * @param pageSize          每页的数量
+     * @return  MyPage<RechargeDetail>
+     */
+    @Override
+    public MyPage<RechargeDetail> getRechargeDetailList(RechargeDetail rechargeDetail, int pageNum, int pageSize) {
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        List<RechargeDetail> rechargeDetails = rechargeDetailMapper.getInfoList(rechargeDetail);
+        MyPage<RechargeDetail> myPage = new MyPage<>();
+        myPage.setList(rechargeDetails);
+        myPage.setCount(page.getTotal());
+        return myPage;
     }
 }

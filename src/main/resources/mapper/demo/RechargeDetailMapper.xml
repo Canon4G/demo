@@ -19,6 +19,13 @@
     from finance_recharge_detail
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="getInfoList" resultMap="BaseResultMap" parameterType="com.example.demo.model.RechargeDetail">
+    select
+    <include refid="Base_Column_List" />
+    from finance_recharge_detail
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from finance_recharge_detail
     where id = #{id,jdbcType=BIGINT}

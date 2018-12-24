@@ -25,6 +25,8 @@ public class RechargeDetail implements Serializable {
 
     private String userCode;                // 用户编码
 
+    private String userName;                // 用户名（业务需要）
+
     public RechargeDetail() {
     }
 
@@ -102,6 +104,15 @@ public class RechargeDetail implements Serializable {
 
     public void setGmtCreate(Date gmtCreate) {
         this.gmtCreate = gmtCreate;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public RechargeDetail setUserName(String userName) {
+        this.userName = userName;
+        return this;
     }
 
     public static final class Builder {

@@ -8,6 +8,9 @@ import com.example.demo.model.CommodityComic;
 import com.example.demo.model.ConsumeDetail;
 import com.example.demo.model.UserAccount;
 import com.example.demo.util.CodeUtil;
+import com.example.demo.util.MyPage;
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * 支付
@@ -65,5 +69,23 @@ public class ConsumeManagerImpl implements ConsumeManager {
         comic.setComicInventory(String.valueOf(Integer.parseInt(comic.getComicInventory()) - Integer.parseInt(buyComicNum)));
         comic.setGmtModified(new Date());
         commodityComicMapper.updateByPrimaryKeySelective(comic);
+    }
+
+    /**
+     * 获得消耗流水列表(分页)
+     * @author Canon4G
+     * @param consumeDetail     消耗流水信息
+     * @param pageNum           页码
+     * @param pageSize          每页的数量
+     * @return MyPage<ConsumeDetail>
+     */
+    @Override
+    public MyPage<ConsumeDetail> getConsumeDetailList(ConsumeDetail consumeDetail, int pageNum, int pageSize) {
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        List<ConsumeDetail> consumeDetails = consumeDetailMapper.getInfoList(consumeDetail);
+        MyPage<ConsumeDetail> myPage = new MyPage<>();
+        myPage.setList(consumeDetails);
+        myPage.setCount(page.getTotal());
+        return myPage;
     }
 }

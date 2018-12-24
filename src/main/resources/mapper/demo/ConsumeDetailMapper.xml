@@ -21,6 +21,15 @@
     from finance_consume_detail
     where id = #{id,jdbcType=BIGINT}
   </select>
+
+  <select id="getInfoList" resultMap="BaseResultMap" parameterType="com.example.demo.model.ConsumeDetail">
+    select
+    <include refid="Base_Column_List" />
+    from
+    finance_consume_detail
+  </select>
+
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
     delete from finance_consume_detail
     where id = #{id,jdbcType=BIGINT}
