@@ -132,7 +132,8 @@ public class ComicController extends BaseController {
         // 获得用户的账户
         UserAccount userAccount = userAccountManager.getUserAccountInfo(new UserAccount.Builder().userCode(user.getUserCode()).build());
         // 获得账户余额
-        BigDecimal accountMoney = userAccount.getAccountMoney();
+        BigDecimal accountMoney;
+        accountMoney = (null == userAccount.getAccountMoney()) ? new BigDecimal("0.00") : userAccount.getAccountMoney();
         if (0 < totalMoney.compareTo(accountMoney)) {
             result.put("returnMsg", "账户余额不足");
             return JsonResult.asFalseModel(result);

@@ -1,8 +1,13 @@
 $(function () {
     init();
+    new_element=document.createElement("script");
+    new_element.setAttribute("type","text/javascript");
+    new_element.setAttribute("src","/js/demo/index.js");// 在这里引入了a.js
+    document.body.appendChild(new_element);
 });
 
 function init() {
+    initIndex();
     getComicList(1);
 }
 function getComicList(pageNum) {
@@ -109,14 +114,13 @@ function toConsume() {
             "buyComicNum": $("#buyComicNum").val()
         },
         success: function (data) {
-            if ('success' !== data) {
+            if ('success' !== data.code) {
                 alert(data.data.returnMsg);
                 return;
             }
             alert(data.data.returnMsg);
             closeConsumeWin();
             init();
-            initIndex();
         }
     });
 }
