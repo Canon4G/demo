@@ -24,6 +24,8 @@
     select
     <include refid="Base_Column_List" />
     from finance_recharge_detail
+    ORDER BY
+    id DESC
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

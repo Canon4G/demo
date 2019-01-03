@@ -51,6 +51,8 @@
         and comic_type = #{comicType}
       </if>
     </where>
+    ORDER BY
+    id DESC
   </select>
   
   <delete id="deleteByComicCode" parameterType="java.lang.String" >

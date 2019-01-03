@@ -27,6 +27,8 @@
     <include refid="Base_Column_List" />
     from
     finance_consume_detail
+    ORDER BY
+    id DESC
   </select>
 
 
